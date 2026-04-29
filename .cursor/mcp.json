@@ -1,0 +1,35 @@
+{
+  "mcpServers": {
+    "github": {
+      "command": "gh",
+      "args": ["api", "--help"],
+      "disabled": true,
+      "notes": "Placeholder. Replace with a real GitHub MCP server or Composio GitHub tool when available."
+    },
+    "linear": {
+      "command": "npx",
+      "args": ["-y", "@modelcontextprotocol/server-linear"],
+      "env": {
+        "LINEAR_API_KEY": "${LINEAR_API_KEY}"
+      },
+      "disabled": true,
+      "notes": "Enable after LINEAR_API_KEY is set and the Linear MCP package/server choice is confirmed."
+    },
+    "cashclaw": {
+      "command": "node",
+      "args": ["/Users/tumeloramaphosa/cashclaw/bin/cashclaw.js"],
+      "disabled": true,
+      "notes": "CashClaw is a CLI lead agent, not a confirmed MCP server. Use bridge scripts first."
+    },
+    "mesh-llm": {
+      "url": "http://localhost:9337/v1",
+      "disabled": true,
+      "notes": "OpenAI-compatible model endpoint, not an MCP server. Configure it in model settings or AionUi custom provider."
+    },
+    "ollama": {
+      "url": "http://localhost:11434",
+      "disabled": true,
+      "notes": "Ollama endpoint, not an MCP server. Configure it in model settings or AionUi custom provider."
+    }
+  }
+}
