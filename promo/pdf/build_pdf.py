@@ -25,6 +25,7 @@ def img_data_uri(path: Path) -> str:
 ARCH = img_data_uri(DIAGRAMS / "architecture.png")
 ROLES = img_data_uri(DIAGRAMS / "roles.png")
 RITUAL = img_data_uri(DIAGRAMS / "ritual.png")
+DASHBOARD = img_data_uri(DIAGRAMS / "dashboard.png")
 
 
 CSS_STR = """
@@ -352,6 +353,30 @@ HTML_DOC = f"""
 <h4>22:00 — Night Build</h4>
 <p>
     Between 10pm and 2am every night, agents build. Strictly two prototypes per night. Local Ollama only. No Claude calls. No outbound messages. No real-money operations. Each prototype gets a 3-page plan, working code in a sandboxed folder, passing tests, and a Cursor configuration so the project opens cleanly when the founder wakes up. At 8am, Robusca surfaces them: <em>"Approve, revise, or discard?"</em>
+</p>
+
+<!-- 4.5. Dashboard -->
+<div class="page-break"></div>
+
+<h2>The dashboard</h2>
+<h3>One screen. Eight time zones. Your whole company at a glance.</h3>
+
+<div class="diagram">
+    <img src="{DASHBOARD}" alt="Dashboard mockup"/>
+    <div class="caption">Live at <strong>localhost:3141</strong> · Cloudflare-tunnelled for remote access. World clocks tick every 30 seconds.</div>
+</div>
+
+<p>
+    <strong>Top strip</strong> — transparent bold-white world clocks for Cape Town, Dubai, London, Shanghai, Beijing, Hong Kong, New York and San Francisco. You always know what time it is at every desk that matters.
+</p>
+<p>
+    <strong>Tabs</strong> — Council · Mission · War Room · Agents · Ledger · Night Build. Yellow when idle, filled orange when active. Each tab is a full view; nothing is hidden.
+</p>
+<p>
+    <strong>Kanban bands</strong> — three columns with the StudEx signature look: <em>Queued</em> and <em>Done</em> in yellow, <em>Running</em> in orange. Cards carry the agent's pixel face on the left and the task title on the right. Drag to move; the classifier reroutes automatically if no agent is set.
+</p>
+<p>
+    <strong>Status bar</strong> — agents online, errors today, PRs waiting on you, time until Night Build starts, and the running cost split: <em>local tokens vs Claude tokens</em>. You can see in one glance whether you spent zero on cloud today.
 </p>
 
 <!-- 5. Pricing -->

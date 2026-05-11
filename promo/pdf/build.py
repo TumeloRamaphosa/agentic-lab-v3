@@ -181,11 +181,109 @@ def build_ritual():
     plt.close()
 
 
+# ---------------------------------------------------------------------------
+# Diagram 4: Dashboard mockup
+# ---------------------------------------------------------------------------
+def build_dashboard():
+    fig, ax = plt.subplots(figsize=(11, 7), dpi=180)
+    fig.patch.set_facecolor(BG)
+    stylise(ax)
+    ax.set_xlim(0, 11)
+    ax.set_ylim(0, 7)
+
+    # Top: world clock strip (transparent bold white)
+    cities = [
+        ("Cape Town", "08:30", "SAST"),
+        ("Dubai",      "10:30", "GST"),
+        ("London",     "06:30", "GMT"),
+        ("Shanghai",   "14:30", "CST"),
+        ("Beijing",    "14:30", "CST"),
+        ("Hong Kong",  "14:30", "HKT"),
+        ("New York",   "02:30", "EST"),
+        ("San Fran.",  "23:30", "PST"),
+    ]
+    strip_y = 6.25
+    ax.add_patch(FancyBboxPatch((0.2, strip_y - 0.25), 10.6, 0.55,
+                                 boxstyle="round,pad=0,rounding_size=0.05",
+                                 facecolor="#11151F", edgecolor="#FFFFFF22", lw=0.6))
+    for i, (city, time, abbr) in enumerate(cities):
+        x = 0.85 + i * 1.31
+        ax.text(x, strip_y + 0.10, city.upper(), ha="center", color="#FFFFFFB0",
+                fontsize=7, weight="bold")
+        ax.text(x, strip_y - 0.13, f"{time} {abbr}", ha="center", color="#FFFFFF",
+                fontsize=10, weight="bold", family="monospace")
+
+    # Title row
+    ax.text(0.4, 5.65, "STUDEX VALLEY OS", color=BORDER, fontsize=10,
+            weight="bold")
+    ax.text(0.4, 5.25, "Mission Control", color=INK, fontsize=22, weight="bold")
+
+    # Tabs row (right side)
+    tabs = ["Council", "Mission", "War Room", "Agents", "Ledger", "Night Build"]
+    tab_x = 4.8
+    for i, t in enumerate(tabs):
+        active = (t == "Mission")
+        tw = 1.02
+        x = tab_x + i * (tw + 0.05)
+        ax.add_patch(FancyBboxPatch((x, 5.25), tw, 0.45,
+                                     boxstyle="round,pad=0,rounding_size=0.06",
+                                     facecolor=BORDER if active else "none",
+                                     edgecolor=BORDER if active else INK,
+                                     lw=1.4))
+        ax.text(x + tw / 2, 5.47, t.upper(), ha="center", va="center",
+                color=BG if active else INK, fontsize=8, weight="bold")
+
+    # Kanban bands
+    bands = [
+        ("QUEUED",  INK,    3, ["SGM follow-ups", "Coffee A/B test", "Moz pipeline"]),
+        ("RUNNING", BORDER, 2, ["Cursor BG · refactor", "Sandbox template"]),
+        ("DONE",    INK,    2, ["WhatsApp cleared", "Restart · DenchClaw"]),
+    ]
+    band_width = 3.45
+    band_x = 0.4
+    for col_i, (label, tint, count, items) in enumerate(bands):
+        x = band_x + col_i * (band_width + 0.1)
+        y = 0.4
+        h = 4.5
+
+        # Card frame
+        ax.add_patch(FancyBboxPatch((x, y), band_width, h,
+                                     boxstyle="round,pad=0,rounding_size=0.08",
+                                     facecolor="#0B0E14CC", edgecolor=tint, lw=2))
+        # Header
+        ax.add_patch(FancyBboxPatch((x, y + h - 0.55), band_width, 0.55,
+                                     boxstyle="round,pad=0,rounding_size=0.08",
+                                     facecolor=tint, edgecolor=tint, lw=0))
+        ax.text(x + 0.2, y + h - 0.28, label, ha="left", va="center",
+                color=BG, fontsize=11, weight="bold")
+        # Count chip
+        ax.add_patch(mpatches.Circle((x + band_width - 0.3, y + h - 0.28), 0.18,
+                                      color=BG))
+        ax.text(x + band_width - 0.3, y + h - 0.28, str(count), ha="center",
+                va="center", color=tint, fontsize=10, weight="bold")
+
+        # Items
+        for j, item in enumerate(items):
+            iy = y + h - 1.0 - j * 0.85
+            ax.add_patch(FancyBboxPatch((x + 0.15, iy - 0.3), band_width - 0.3, 0.6,
+                                         boxstyle="round,pad=0,rounding_size=0.05",
+                                         facecolor=SURFACE, edgecolor=tint, lw=0.8))
+            # Mini pixel avatar (just a small orange square as proxy)
+            ax.add_patch(mpatches.Rectangle((x + 0.25, iy - 0.15), 0.32, 0.4,
+                                             color=BORDER, alpha=0.5))
+            ax.text(x + 0.7, iy, item, ha="left", va="center",
+                    color=INK, fontsize=9)
+
+    plt.savefig(DIAGRAMS / "dashboard.png", facecolor=BG,
+                bbox_inches="tight", pad_inches=0.3)
+    plt.close()
+
+
 if __name__ == "__main__":
     print("Building diagrams...")
     build_architecture()
     build_roles()
     build_ritual()
-    print(f"Wrote {DIAGRAMS}/architecture.png")
-    print(f"Wrote {DIAGRAMS}/roles.png")
-    print(f"Wrote {DIAGRAMS}/ritual.png")
+    build_dashboard()
+    for n in ["architecture", "roles", "ritual", "dashboard"]:
+        print(f"Wrote {DIAGRAMS}/{n}.png")
