@@ -1,10 +1,10 @@
 export const theme = {
   bg: "#0B0E14",
   surface: "#11151F",
-  ink: "#F2F4F8",
-  inkDim: "#9CA6B8",
-  accent: "#FFD60A",         // tech yellow
-  accentSoft: "#FFE45C",
+  ink: "#FFD60A",            // tech yellow — primary text
+  inkDim: "#FFE066",         // softer yellow — secondary text
+  accent: "#FF7A1A",         // orange — boxes, borders, CTAs
+  accentSoft: "#FFB47A",     // soft orange — arrows
   good: "#4ADE80",
   warn: "#FFD60A",
   font: '"Inter", "SF Pro Display", system-ui, -apple-system, sans-serif',

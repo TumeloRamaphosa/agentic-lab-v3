@@ -34,38 +34,48 @@ CSS_STR = """
     background: #0B0E14;
     @bottom-right {
         content: "StudEx Valley OS  ·  Page " counter(page) " / " counter(pages);
-        color: #9CA6B8;
+        color: #FFE066;
         font-family: "Helvetica", "Arial", sans-serif;
         font-size: 10pt;
     }
     @bottom-left {
         content: "studex.valley";
-        color: #FFD60A;
+        color: #FF7A1A;
         font-family: "Helvetica", "Arial", sans-serif;
         font-size: 10pt;
         font-weight: bold;
     }
 }
 
+/* Palette
+   #FF7A1A  border / structural / CTA  (orange)
+   #FFB47A  arrow tails / soft accents (soft orange)
+   #FFD60A  primary text (tech yellow)
+   #FFE066  secondary text (warm yellow)
+   #11151F  surface (cards)
+   #0B0E14  background
+*/
+
 * { box-sizing: border-box; }
 body {
     font-family: "Helvetica", "Arial", sans-serif;
-    color: #F2F4F8;
+    color: #FFD60A;
     background: #0B0E14;
-    font-size: 12.5pt;
+    font-size: 13pt;
     line-height: 1.6;
     margin: 0;
     font-weight: 500;
 }
-h1 { color: #F2F4F8; font-size: 42pt; margin: 0 0 8pt 0; line-height: 1.05; font-weight: 800; }
-h2 { color: #FFD60A; font-size: 13pt; letter-spacing: 5pt; margin: 34pt 0 6pt 0; text-transform: uppercase; font-weight: 700; }
-h3 { color: #F2F4F8; font-size: 24pt; margin: 6pt 0 16pt 0; line-height: 1.15; font-weight: 700; }
-h4 { color: #FFD60A; font-size: 16pt; margin: 22pt 0 8pt 0; letter-spacing: 1pt; font-weight: 700; }
-p { margin: 0 0 12pt 0; color: #E2E8F0; }
+h1 { color: #FFD60A; font-size: 44pt; margin: 0 0 8pt 0; line-height: 1.05; font-weight: 800; }
+h2 { color: #FF7A1A; font-size: 13pt; letter-spacing: 5pt; margin: 34pt 0 6pt 0; text-transform: uppercase; font-weight: 700; }
+h3 { color: #FFD60A; font-size: 26pt; margin: 6pt 0 18pt 0; line-height: 1.15; font-weight: 700; }
+h4 { color: #FF7A1A; font-size: 17pt; margin: 24pt 0 8pt 0; letter-spacing: 1pt; font-weight: 700; }
+p { margin: 0 0 12pt 0; color: #FFE066; }
 strong { color: #FFD60A; font-weight: 700; }
-em { color: #FFE45C; font-style: normal; font-weight: 600; }
-ul { margin: 0 0 12pt 0; padding-left: 20pt; color: #E2E8F0; }
+em { color: #FFB47A; font-style: normal; font-weight: 600; }
+ul { margin: 0 0 12pt 0; padding-left: 20pt; color: #FFE066; }
 li { margin-bottom: 6pt; }
+li::marker { color: #FF7A1A; }
 
 .cover {
     height: 95vh;
@@ -76,7 +86,7 @@ li { margin-bottom: 6pt; }
     page-break-after: always;
 }
 .kicker {
-    color: #FFD60A;
+    color: #FF7A1A;
     font-size: 13pt;
     letter-spacing: 7pt;
     margin-bottom: 22pt;
@@ -84,23 +94,24 @@ li { margin-bottom: 6pt; }
     font-weight: 700;
 }
 .cover-sub {
-    color: #C7CED9;
-    font-size: 17pt;
+    color: #FFE066;
+    font-size: 18pt;
     margin-top: 20pt;
     max-width: 540pt;
     line-height: 1.5;
 }
 .cover-meta {
     margin-top: 60pt;
-    color: #9CA6B8;
+    color: #FFE066;
     font-size: 12pt;
 }
-.cover-meta strong { color: #FFD60A; }
+.cover-meta strong { color: #FF7A1A; }
 
 .page-break { page-break-before: always; }
 
 .diagram {
     background: #11151F;
+    border: 1.5pt solid #FF7A1A;
     border-radius: 10pt;
     padding: 12pt;
     margin: 16pt 0 22pt 0;
@@ -111,7 +122,7 @@ li { margin-bottom: 6pt; }
     border-radius: 6pt;
 }
 .caption {
-    color: #C7CED9;
+    color: #FFE066;
     font-size: 11pt;
     font-style: italic;
     margin-top: 8pt;
@@ -121,41 +132,42 @@ table {
     width: 100%;
     border-collapse: collapse;
     margin: 10pt 0 20pt 0;
-    color: #E2E8F0;
+    color: #FFE066;
 }
 th {
     background: #11151F;
-    color: #FFD60A;
+    color: #FF7A1A;
     text-align: left;
     padding: 10pt 12pt;
     font-size: 11pt;
     letter-spacing: 1.5pt;
     text-transform: uppercase;
-    border-bottom: 1.5pt solid #FFD60A;
+    border-bottom: 1.5pt solid #FF7A1A;
     font-weight: 700;
 }
 td {
     padding: 10pt 12pt;
-    border-bottom: 1pt solid #1F2632;
+    border-bottom: 1pt solid #FF7A1A33;
     vertical-align: top;
     font-size: 12pt;
     line-height: 1.45;
+    color: #FFE066;
 }
 td strong { color: #FFD60A; font-weight: 700; }
 
 .tier {
     background: #11151F;
-    border: 1.5pt solid #2A3140;
+    border: 1.5pt solid #FF7A1A;
     border-radius: 12pt;
     padding: 18pt 20pt;
     margin-bottom: 14pt;
 }
 .tier.featured {
-    border: 2pt solid #FFD60A;
-    background: #1A1605;
+    border: 2.5pt solid #FF7A1A;
+    background: #1A1208;
 }
 .tier-name {
-    color: #FFD60A;
+    color: #FF7A1A;
     font-size: 13pt;
     letter-spacing: 3pt;
     text-transform: uppercase;
@@ -163,18 +175,18 @@ td strong { color: #FFD60A; font-weight: 700; }
     font-weight: 700;
 }
 .tier-price {
-    color: #F2F4F8;
-    font-size: 30pt;
+    color: #FFD60A;
+    font-size: 32pt;
     font-weight: 800;
     margin-bottom: 6pt;
 }
 .tier-price small {
-    color: #C7CED9;
+    color: #FFE066;
     font-size: 14pt;
     font-weight: 500;
 }
 .tier-who {
-    color: #C7CED9;
+    color: #FFE066;
     font-size: 12pt;
     margin-bottom: 10pt;
 }
@@ -182,22 +194,21 @@ td strong { color: #FFD60A; font-weight: 700; }
     margin: 0;
     padding-left: 18pt;
     font-size: 12pt;
+    color: #FFE066;
 }
-.tier ul li::marker {
-    color: #FFD60A;
-}
+.tier ul li::marker { color: #FF7A1A; }
 
 .callout {
     background: #11151F;
-    border-left: 4pt solid #FFD60A;
+    border-left: 4pt solid #FF7A1A;
     padding: 16pt 20pt;
     margin: 18pt 0;
     border-radius: 0 8pt 8pt 0;
     font-size: 13pt;
-    color: #E2E8F0;
+    color: #FFE066;
 }
 .callout-title {
-    color: #FFD60A;
+    color: #FF7A1A;
     font-size: 11pt;
     letter-spacing: 2.5pt;
     text-transform: uppercase;
@@ -208,17 +219,17 @@ td strong { color: #FFD60A; font-weight: 700; }
 .cta {
     margin-top: 40pt;
     padding: 30pt;
-    background: #FFD60A;
+    background: #FF7A1A;
     color: #0B0E14;
     border-radius: 14pt;
     text-align: center;
 }
-.cta-line { font-size: 28pt; font-weight: 800; margin-bottom: 8pt; }
+.cta-line { font-size: 32pt; font-weight: 800; margin-bottom: 8pt; color: #0B0E14; }
 .cta-sub { font-size: 14pt; color: #0B0E14; opacity: 0.9; font-weight: 600; }
 
 .signature {
     margin-top: 32pt;
-    color: #9CA6B8;
+    color: #FFE066;
     font-size: 11pt;
     text-align: center;
 }
