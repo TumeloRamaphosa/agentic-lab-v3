@@ -14,13 +14,16 @@ export const theme = {
 export const FPS = 30;
 
 export const SCENES: Array<{ id: string; durationFrames: number }> = [
-  { id: "intro", durationFrames: FPS * 6 },
-  { id: "problem", durationFrames: FPS * 8 },
-  { id: "picture", durationFrames: FPS * 10 },
-  { id: "roles", durationFrames: FPS * 10 },
-  { id: "ritual", durationFrames: FPS * 10 },
-  { id: "pricing", durationFrames: FPS * 8 },
-  { id: "cta", durationFrames: FPS * 8 },
+  { id: "genesis",   durationFrames: FPS * 8  },
+  { id: "intro",     durationFrames: FPS * 5  },
+  { id: "problem",   durationFrames: FPS * 7  },
+  { id: "picture",   durationFrames: FPS * 9  },
+  { id: "roles",     durationFrames: FPS * 8  },
+  { id: "factory",   durationFrames: FPS * 12 },
+  { id: "dashboard", durationFrames: FPS * 12 },
+  { id: "ritual",    durationFrames: FPS * 9  },
+  { id: "pricing",   durationFrames: FPS * 7  },
+  { id: "cta",       durationFrames: FPS * 7  },
 ];
 
 export function sceneStart(id: string): number {

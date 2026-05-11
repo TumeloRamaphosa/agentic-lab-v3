@@ -431,6 +431,63 @@ mission delegate <id> --to cursor-cli              → headless cursor-agent in 
 mission delegate <id> --to cursor-bg [--model X]   → spawn Cursor Background Agent; record agent_id; poll for PR
 ```
 
+## Dashboard (Hono · port :3141)
+
+The live dashboard lives in `valley/src/dashboard/` and serves at `http://localhost:3141` (Cloudflare-tunnelled via `mac-nas.sh` for remote access).
+
+**Design system — match the Remotion `Dashboard` scene exactly:**
+
+- **Background:** `${VAULT_PATH}/StudEx-Valley-OS/assets/studex-genesis.png` (the Michelangelo × Studex painting) at 18 % opacity with a 3px blur and a `#0B0E14` 72 % tint on top — barely visible chrome, so the UI sits comfortably above it.
+- **Top strip:** transparent bold-white world clocks, 76px tall, blurred backdrop (`backdrop-filter: blur(6px)` over `rgba(11,14,20,0.55)`). Cities in this order — Cape Town (SAST) · Dubai (GST) · London (GMT) · Shanghai (CST) · Beijing (CST) · Hong Kong (HKT) · New York (EST) · San Francisco (PST). Use `Intl.DateTimeFormat({timeZone, hour: "2-digit", minute: "2-digit", hour12: false})`; tick every 30s.
+- **Tabs (top of main panel):** rounded `10px`, `2px` border. Inactive = transparent fill, yellow `#FFD60A` border, yellow text. Active = orange `#FF7A1A` fill, dark `#0B0E14` text. Tabs: `Council · Mission · War Room · Agents · Ledger · Night Build`.
+- **Kanban bands (main view):** three columns — `Queued · Running · Done`. Queued and Done use the **yellow band** treatment, Running uses the **orange band** treatment. Each band is a card with `2px` border in the tint colour, header row solid in the tint with a count chip in inverted colours, body padded `12px` with cards stacked vertically.
+- **Kanban cards:** `#11151F` surface, `1px` border matching the band tint, rounded `10px`. Layout: 44px pixel agent sprite on the left, title in yellow + small mono caption in dim yellow on the right. Drag-and-drop to move; classifier auto-routes if no agent specified.
+- **Status bar (bottom):** single row inside `rgba(11,14,20,0.65)` with a `1px` orange border, mono font. Shows "● 11 agents online · 0 errors · N PRs awaiting review · Night Build ready in HHh MMm · Local tokens today: X · Claude: Y".
+- **Pixel agents:** every agent card, council seat and kanban card uses the pixel-sprite component. HD upgrade path: if `${VAULT_PATH}/StudEx-Valley-OS/assets/agents/<codename>.png` exists (NanoBanana output), use it; otherwise render the SVG sprite. The eleven sprite definitions live in `valley/src/dashboard/sprites/characters.ts` — port them from `promo/remotion/src/sprites/characters.ts` if `promo/` exists, otherwise generate matching matrices.
+
+**Files to create in chunk 9 of the build order** (extending the Hono dashboard scaffold):
+
+```
+valley/src/dashboard/
+├─ server.ts                       Hono routes — / · /api/missions · /api/agents · /ws
+├─ ui/
+│  ├─ app.tsx                      React root, hash-routing for tabs
+│  ├─ theme.css                    Variables: --bg --surface --ink --ink-dim --accent --accent-soft
+│  ├─ components/
+│  │  ├─ WorldClockStrip.tsx       Identical contract to promo/remotion/.../WorldClockStrip.tsx
+│  │  ├─ Tabs.tsx
+│  │  ├─ KanbanBand.tsx            Tint = "orange" | "yellow"
+│  │  ├─ KanbanCard.tsx            Embeds <Character />
+│  │  ├─ StatusBar.tsx
+│  │  └─ GenesisBackdrop.tsx
+│  ├─ views/
+│  │  ├─ Council.tsx               Live transcript at 09:00 + replay
+│  │  ├─ Mission.tsx               The three-band kanban
+│  │  ├─ WarRoom.tsx               Roster picker + meeting starter
+│  │  ├─ Agents.tsx                Agent toggle grid (on/off, model swap)
+│  │  ├─ Ledger.tsx                Costs/revenue/runway
+│  │  └─ NightBuild.tsx            Latest proposals/INDEX.md with approve/revise/discard
+│  └─ sprites/
+│     ├─ PixelSprite.tsx
+│     ├─ Character.tsx
+│     └─ characters.ts
+└─ ws/realtime.ts                  Server-Sent Events for live updates
+```
+
+**Implementation notes for the build agent:**
+- Use Vite + React 18 inside Hono; serve the built `dist/` from a `/` route.
+- All times in the world-clock strip recompute every 30s — no SSR needed; pure client.
+- The HD agent images (when present) are served from `/assets/agents/<codename>.png` and the dashboard reads them as plain `<img>` with `onError` swap-to-sprite.
+- Use Server-Sent Events for kanban updates (a new mission, an agent toggling, a Cursor Background Agent finishing). Keep the protocol minimal: one JSON event per state change with a `type` and `payload`.
+- The dashboard must keep working with `SCHEDULER_ENABLED=false` — it just shows static last-snapshot data.
+
+**Acceptance for the dashboard:**
+```bash
+npm run dashboard:dev               # serves on :3141
+open http://localhost:3141          # world clocks animate; kanban renders with seed data
+```
+Tumelo will look at the Mission tab first — make sure the three-band layout renders correctly with empty bands too.
+
 ## Composio (`factory/config/composio.json`)
 ```json
 {
