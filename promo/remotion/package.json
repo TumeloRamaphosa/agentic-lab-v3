@@ -1,0 +1,23 @@
+{
+  "name": "studex-valley-os-promo",
+  "version": "1.0.0",
+  "private": true,
+  "description": "60-second promo video for StudEx Valley OS built with Remotion",
+  "scripts": {
+    "preview": "remotion studio",
+    "build": "remotion render Promo out/studex-valley-os-promo.mp4",
+    "build:web": "remotion render Promo out/studex-valley-os-promo.webm --codec=vp8",
+    "render:still": "remotion still Promo out/poster.png --frame=60"
+  },
+  "dependencies": {
+    "@remotion/cli": "^4.0.250",
+    "@remotion/google-fonts": "^4.0.250",
+    "react": "^18.3.1",
+    "react-dom": "^18.3.1",
+    "remotion": "^4.0.250"
+  },
+  "devDependencies": {
+    "@types/react": "^18.3.12",
+    "typescript": "^5.6.3"
+  }
+}
