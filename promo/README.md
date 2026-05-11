@@ -51,8 +51,8 @@ All three assets use the same palette so the pack looks like one piece:
 | Background | `#0B0E14` | PDF page, video bg |
 | Surface | `#11151F` | Cards |
 | Ink | `#F2F4F8` | Primary text |
-| Ink Dim | `#8A95A6` | Secondary text |
-| Accent | `#FF7A1A` | Headings, CTAs |
-| Accent Soft | `#FFB47A` | Arrows, highlights |
+| Ink Dim | `#9CA6B8` | Secondary text |
+| Accent | `#FFD60A` | Tech yellow — headings, CTAs |
+| Accent Soft | `#FFE45C` | Arrows, highlights |
 
 Change them in three places to rebrand: `pdf/build.py` (top constants), `pdf/build_pdf.py` (CSS_STR), `remotion/src/theme.ts`.

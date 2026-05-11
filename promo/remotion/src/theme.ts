@@ -2,11 +2,11 @@ export const theme = {
   bg: "#0B0E14",
   surface: "#11151F",
   ink: "#F2F4F8",
-  inkDim: "#8A95A6",
-  accent: "#FF7A1A",
-  accentSoft: "#FFB47A",
+  inkDim: "#9CA6B8",
+  accent: "#FFD60A",         // tech yellow
+  accentSoft: "#FFE45C",
   good: "#4ADE80",
-  warn: "#FACC15",
+  warn: "#FFD60A",
   font: '"Inter", "SF Pro Display", system-ui, -apple-system, sans-serif',
   mono: '"JetBrains Mono", "SF Mono", Menlo, monospace',
 };

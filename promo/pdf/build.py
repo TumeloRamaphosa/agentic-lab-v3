@@ -23,9 +23,9 @@ from matplotlib.patches import FancyBboxPatch, FancyArrowPatch
 BG = "#0B0E14"
 SURFACE = "#11151F"
 INK = "#F2F4F8"
-INK_DIM = "#8A95A6"
-ACCENT = "#FF7A1A"
-ACCENT_SOFT = "#FFB47A"
+INK_DIM = "#9CA6B8"
+ACCENT = "#FFD60A"         # tech yellow
+ACCENT_SOFT = "#FFE45C"
 GOOD = "#4ADE80"
 
 HERE = Path(__file__).parent
@@ -41,13 +41,13 @@ def stylise(ax):
     ax.set_yticks([])
 
 
-def rounded(ax, x, y, w, h, label, sub=None, fill=SURFACE, border=ACCENT, text=INK, text_size=11, sub_size=8):
+def rounded(ax, x, y, w, h, label, sub=None, fill=SURFACE, border=ACCENT, text=INK, text_size=14, sub_size=10):
     box = FancyBboxPatch(
         (x, y),
         w,
         h,
         boxstyle="round,pad=0.02,rounding_size=0.08",
-        linewidth=1.6,
+        linewidth=2.0,
         edgecolor=border,
         facecolor=fill,
     )
@@ -62,10 +62,10 @@ def rounded(ax, x, y, w, h, label, sub=None, fill=SURFACE, border=ACCENT, text=I
                 color=text, fontsize=text_size, weight="bold")
 
 
-def arrow(ax, x1, y1, x2, y2, color=ACCENT_SOFT, lw=1.6, style="->"):
+def arrow(ax, x1, y1, x2, y2, color=ACCENT_SOFT, lw=2.0, style="->"):
     a = FancyArrowPatch((x1, y1), (x2, y2),
                         arrowstyle=style, color=color,
-                        mutation_scale=14, lw=lw)
+                        mutation_scale=18, lw=lw)
     ax.add_patch(a)
 
 
@@ -80,7 +80,7 @@ def build_architecture():
     ax.set_ylim(0, 7)
 
     ax.text(5.5, 6.65, "S T U D E X   V A L L E Y   O S   —   A R C H I T E C T U R E",
-            ha="center", color=ACCENT, fontsize=13, weight="bold")
+            ha="center", color=ACCENT, fontsize=15, weight="bold")
 
     layers = [
         ("VAULT",     "single source of truth (your Obsidian 2nd Brain)",       5.3, ACCENT),
@@ -90,10 +90,10 @@ def build_architecture():
         ("MUSCLE",    "Ollama on your Macs · Claude only on escalation",        0.5, ACCENT),
     ]
     for label, sub, y, color in layers:
-        rounded(ax, 0.7, y, 9.6, 1.0, label, sub=sub, border=color, text_size=15, sub_size=10)
+        rounded(ax, 0.7, y, 9.6, 1.0, label, sub=sub, border=color, text_size=18, sub_size=12)
 
     for y in [5.3, 4.1, 2.9, 1.7]:
-        arrow(ax, 5.5, y, 5.5, y - 0.2, color=ACCENT_SOFT, lw=1.4)
+        arrow(ax, 5.5, y, 5.5, y - 0.2, color=ACCENT_SOFT, lw=2.0)
 
     plt.savefig(DIAGRAMS / "architecture.png", facecolor=BG, bbox_inches="tight", pad_inches=0.3)
     plt.close()
@@ -110,7 +110,7 @@ def build_roles():
     ax.set_ylim(0, 7)
 
     ax.text(5.5, 6.65, "S I X   R O L E S   ·   E L E V E N   C O D E N A M E S",
-            ha="center", color=ACCENT, fontsize=13, weight="bold")
+            ha="center", color=ACCENT, fontsize=15, weight="bold")
 
     roles = [
         ("CHIEF OF STAFF", "Robusca",                       0.4, 5.0),
@@ -121,10 +121,10 @@ def build_roles():
         ("MEDIA",          "The Lady",                      5.6, 1.8),
     ]
     for role, codenames, x, y in roles:
-        rounded(ax, x, y, 5.0, 1.2, role, sub=codenames, border=ACCENT, text_size=14, sub_size=11)
+        rounded(ax, x, y, 5.0, 1.2, role, sub=codenames, border=ACCENT, text_size=17, sub_size=13)
 
     ax.text(5.5, 0.6, "Each codename has its own ElevenLabs voice. Voice routes to channel; channel routes to role.",
-            ha="center", color=INK_DIM, fontsize=10, style="italic")
+            ha="center", color=INK_DIM, fontsize=12, style="italic")
 
     plt.savefig(DIAGRAMS / "roles.png", facecolor=BG, bbox_inches="tight", pad_inches=0.3)
     plt.close()
@@ -141,10 +141,10 @@ def build_ritual():
     ax.set_ylim(0, 6)
 
     ax.text(5.5, 5.55, "O N E   D A Y   ·   O N E   L O O P   (S A S T)",
-            ha="center", color=ACCENT, fontsize=13, weight="bold")
+            ha="center", color=ACCENT, fontsize=15, weight="bold")
 
     # timeline bar
-    ax.add_patch(FancyBboxPatch((0.5, 2.4), 10, 0.18,
+    ax.add_patch(FancyBboxPatch((0.5, 2.4), 10, 0.22,
                                 boxstyle="round,pad=0,rounding_size=0.08",
                                 facecolor=ACCENT, edgecolor=ACCENT))
 
@@ -160,23 +160,20 @@ def build_ritual():
     ]
     above = True
     for x, t, label in slots:
-        # dot
-        ax.add_patch(mpatches.Circle((x, 2.49), 0.10, color=ACCENT_SOFT, ec=BG, lw=2, zorder=5))
-        # tick line
+        ax.add_patch(mpatches.Circle((x, 2.51), 0.13, color=ACCENT_SOFT, ec=BG, lw=2, zorder=5))
         y_text = 3.0 if above else 1.9
         y_label = 3.55 if above else 1.45
-        ax.plot([x, x], [2.55 if above else 2.43, y_text - 0.1 if above else y_text + 0.1],
-                color=INK_DIM, lw=0.8)
+        ax.plot([x, x], [2.65 if above else 2.37, y_text - 0.1 if above else y_text + 0.1],
+                color=INK_DIM, lw=1.0)
         ax.text(x, y_text, t, ha="center", va="bottom" if above else "top",
-                color=ACCENT, fontsize=11, weight="bold", family="monospace")
+                color=ACCENT, fontsize=13, weight="bold", family="monospace")
         ax.text(x, y_label, label, ha="center", va="bottom" if above else "top",
-                color=INK, fontsize=10)
+                color=INK, fontsize=12)
         above = not above
 
-    # idle hours shading
-    ax.add_patch(mpatches.Rectangle((7.3, 0.3), 2.7, 5.0, color=ACCENT, alpha=0.06))
+    ax.add_patch(mpatches.Rectangle((7.3, 0.3), 2.7, 5.0, color=ACCENT, alpha=0.08))
     ax.text(8.65, 0.55, "IDLE HOURS — local Ollama only, no Claude, no outbound",
-            ha="center", color=ACCENT_SOFT, fontsize=9, style="italic")
+            ha="center", color=ACCENT_SOFT, fontsize=11, style="italic")
 
     plt.savefig(DIAGRAMS / "ritual.png", facecolor=BG, bbox_inches="tight", pad_inches=0.3)
     plt.close()

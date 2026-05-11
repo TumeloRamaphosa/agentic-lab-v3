@@ -4,6 +4,14 @@ Paste this entire document as the first message in a fresh Claude Code session r
 
 ---
 
+## Repo consolidation note (read first)
+
+**`TumeloRamaphosa/agents-dr.fixit` is the only repo.** All Valley OS code, configs, agents, docs, promo pack and vault seed live here. The earlier `agentic-lab-v3` work has been deprecated; Tumelo will have copied any reference material across before invoking you.
+
+Before starting chunk 1, list the repo root. If you see a `promo/` folder already present (PDF + Remotion + NotebookLM), leave it untouched — it is the client-facing promo pack and is intentionally pre-built. Do NOT regenerate it. Do NOT delete it. Treat it as read-only artefact during this build.
+
+---
+
 You are the build agent. Human: Tumelo. Build the StudEx Valley OS on top of THIS repo (`TumeloRamaphosa/agents-dr.fixit`) AND seed the existing 2nd Brain Obsidian vault. One focused 2–3 hour pass. Act on the spec below without mid-build clarifications. Pause only at the explicit 🛑 STOP gates.
 
 ## Mission (one sentence)
@@ -169,9 +177,15 @@ agents-dr.fixit/
 │  ├─ MEGA_PROMPT.md                         Save this prompt verbatim
 │  └─ LANDING_PAGE_PROMPT.md
 │
-└─ reference/
-   ├─ CLAUDECLAW_V3_DIGEST.md
-   └─ SGM_PARTNER_DIGEST.md
+├─ reference/
+│  ├─ CLAUDECLAW_V3_DIGEST.md
+│  └─ SGM_PARTNER_DIGEST.md
+│
+└─ promo/                                    (pre-built; do not modify)
+   ├─ README.md
+   ├─ pdf/{business-overview.pdf, build.py, build_pdf.py, diagrams/*.png}
+   ├─ remotion/                              60-second 1080p promo video project
+   └─ notebooklm/{source-document.md, video-script.md, README.md}
 ```
 
 ## Agent file format (apply to every agent)

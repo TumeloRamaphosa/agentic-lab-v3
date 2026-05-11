@@ -34,15 +34,15 @@ CSS_STR = """
     background: #0B0E14;
     @bottom-right {
         content: "StudEx Valley OS  ·  Page " counter(page) " / " counter(pages);
-        color: #8A95A6;
+        color: #9CA6B8;
         font-family: "Helvetica", "Arial", sans-serif;
-        font-size: 9pt;
+        font-size: 10pt;
     }
     @bottom-left {
         content: "studex.valley";
-        color: #FF7A1A;
+        color: #FFD60A;
         font-family: "Helvetica", "Arial", sans-serif;
-        font-size: 9pt;
+        font-size: 10pt;
         font-weight: bold;
     }
 }
@@ -52,19 +52,20 @@ body {
     font-family: "Helvetica", "Arial", sans-serif;
     color: #F2F4F8;
     background: #0B0E14;
-    font-size: 10.5pt;
-    line-height: 1.55;
+    font-size: 12.5pt;
+    line-height: 1.6;
     margin: 0;
+    font-weight: 500;
 }
-h1 { color: #F2F4F8; font-size: 32pt; margin: 0 0 6pt 0; line-height: 1.05; }
-h2 { color: #FF7A1A; font-size: 11pt; letter-spacing: 4pt; margin: 32pt 0 4pt 0; text-transform: uppercase; }
-h3 { color: #F2F4F8; font-size: 18pt; margin: 4pt 0 12pt 0; line-height: 1.15; }
-h4 { color: #FF7A1A; font-size: 12pt; margin: 18pt 0 6pt 0; letter-spacing: 1pt; }
-p { margin: 0 0 10pt 0; color: #C7CED9; }
-strong { color: #F2F4F8; }
-em { color: #FFB47A; font-style: normal; }
-ul { margin: 0 0 10pt 0; padding-left: 16pt; color: #C7CED9; }
-li { margin-bottom: 4pt; }
+h1 { color: #F2F4F8; font-size: 42pt; margin: 0 0 8pt 0; line-height: 1.05; font-weight: 800; }
+h2 { color: #FFD60A; font-size: 13pt; letter-spacing: 5pt; margin: 34pt 0 6pt 0; text-transform: uppercase; font-weight: 700; }
+h3 { color: #F2F4F8; font-size: 24pt; margin: 6pt 0 16pt 0; line-height: 1.15; font-weight: 700; }
+h4 { color: #FFD60A; font-size: 16pt; margin: 22pt 0 8pt 0; letter-spacing: 1pt; font-weight: 700; }
+p { margin: 0 0 12pt 0; color: #E2E8F0; }
+strong { color: #FFD60A; font-weight: 700; }
+em { color: #FFE45C; font-style: normal; font-weight: 600; }
+ul { margin: 0 0 12pt 0; padding-left: 20pt; color: #E2E8F0; }
+li { margin-bottom: 6pt; }
 
 .cover {
     height: 95vh;
@@ -75,32 +76,34 @@ li { margin-bottom: 4pt; }
     page-break-after: always;
 }
 .kicker {
-    color: #FF7A1A;
-    font-size: 10pt;
-    letter-spacing: 5pt;
-    margin-bottom: 18pt;
+    color: #FFD60A;
+    font-size: 13pt;
+    letter-spacing: 7pt;
+    margin-bottom: 22pt;
     text-transform: uppercase;
+    font-weight: 700;
 }
 .cover-sub {
-    color: #8A95A6;
-    font-size: 14pt;
-    margin-top: 16pt;
-    max-width: 480pt;
+    color: #C7CED9;
+    font-size: 17pt;
+    margin-top: 20pt;
+    max-width: 540pt;
+    line-height: 1.5;
 }
 .cover-meta {
     margin-top: 60pt;
-    color: #8A95A6;
-    font-size: 10pt;
+    color: #9CA6B8;
+    font-size: 12pt;
 }
-.cover-meta strong { color: #FF7A1A; }
+.cover-meta strong { color: #FFD60A; }
 
 .page-break { page-break-before: always; }
 
 .diagram {
     background: #11151F;
     border-radius: 10pt;
-    padding: 10pt;
-    margin: 14pt 0 18pt 0;
+    padding: 12pt;
+    margin: 16pt 0 22pt 0;
     text-align: center;
 }
 .diagram img {
@@ -108,106 +111,115 @@ li { margin-bottom: 4pt; }
     border-radius: 6pt;
 }
 .caption {
-    color: #8A95A6;
-    font-size: 9pt;
+    color: #C7CED9;
+    font-size: 11pt;
     font-style: italic;
-    margin-top: 6pt;
+    margin-top: 8pt;
 }
 
 table {
     width: 100%;
     border-collapse: collapse;
-    margin: 8pt 0 16pt 0;
-    color: #C7CED9;
+    margin: 10pt 0 20pt 0;
+    color: #E2E8F0;
 }
 th {
     background: #11151F;
-    color: #FF7A1A;
+    color: #FFD60A;
     text-align: left;
-    padding: 8pt 10pt;
-    font-size: 9pt;
-    letter-spacing: 1pt;
+    padding: 10pt 12pt;
+    font-size: 11pt;
+    letter-spacing: 1.5pt;
     text-transform: uppercase;
-    border-bottom: 1pt solid #FF7A1A;
+    border-bottom: 1.5pt solid #FFD60A;
+    font-weight: 700;
 }
 td {
-    padding: 8pt 10pt;
+    padding: 10pt 12pt;
     border-bottom: 1pt solid #1F2632;
     vertical-align: top;
-    font-size: 10pt;
+    font-size: 12pt;
+    line-height: 1.45;
 }
-td strong { color: #F2F4F8; }
+td strong { color: #FFD60A; font-weight: 700; }
 
 .tier {
     background: #11151F;
-    border: 1pt solid #2A3140;
-    border-radius: 10pt;
-    padding: 14pt 16pt;
-    margin-bottom: 10pt;
+    border: 1.5pt solid #2A3140;
+    border-radius: 12pt;
+    padding: 18pt 20pt;
+    margin-bottom: 14pt;
 }
 .tier.featured {
-    border: 1.5pt solid #FF7A1A;
-    background: #1A1208;
+    border: 2pt solid #FFD60A;
+    background: #1A1605;
 }
 .tier-name {
-    color: #FF7A1A;
-    font-size: 10pt;
+    color: #FFD60A;
+    font-size: 13pt;
     letter-spacing: 3pt;
     text-transform: uppercase;
-    margin-bottom: 4pt;
+    margin-bottom: 6pt;
+    font-weight: 700;
 }
 .tier-price {
     color: #F2F4F8;
-    font-size: 22pt;
-    font-weight: bold;
-    margin-bottom: 4pt;
+    font-size: 30pt;
+    font-weight: 800;
+    margin-bottom: 6pt;
 }
 .tier-price small {
-    color: #8A95A6;
-    font-size: 11pt;
-    font-weight: normal;
+    color: #C7CED9;
+    font-size: 14pt;
+    font-weight: 500;
 }
 .tier-who {
-    color: #8A95A6;
-    font-size: 9pt;
-    margin-bottom: 8pt;
+    color: #C7CED9;
+    font-size: 12pt;
+    margin-bottom: 10pt;
 }
 .tier ul {
     margin: 0;
-    padding-left: 14pt;
-    font-size: 9.5pt;
+    padding-left: 18pt;
+    font-size: 12pt;
+}
+.tier ul li::marker {
+    color: #FFD60A;
 }
 
 .callout {
     background: #11151F;
-    border-left: 3pt solid #FF7A1A;
-    padding: 12pt 16pt;
-    margin: 14pt 0;
-    border-radius: 0 6pt 6pt 0;
+    border-left: 4pt solid #FFD60A;
+    padding: 16pt 20pt;
+    margin: 18pt 0;
+    border-radius: 0 8pt 8pt 0;
+    font-size: 13pt;
+    color: #E2E8F0;
 }
 .callout-title {
-    color: #FF7A1A;
-    font-size: 9pt;
-    letter-spacing: 2pt;
+    color: #FFD60A;
+    font-size: 11pt;
+    letter-spacing: 2.5pt;
     text-transform: uppercase;
-    margin-bottom: 4pt;
+    margin-bottom: 8pt;
+    font-weight: 700;
 }
 
 .cta {
     margin-top: 40pt;
-    padding: 24pt;
-    background: #FF7A1A;
+    padding: 30pt;
+    background: #FFD60A;
     color: #0B0E14;
-    border-radius: 12pt;
+    border-radius: 14pt;
     text-align: center;
 }
-.cta-line { font-size: 20pt; font-weight: bold; margin-bottom: 6pt; }
-.cta-sub { font-size: 11pt; color: #0B0E14; opacity: 0.85; }
+.cta-line { font-size: 28pt; font-weight: 800; margin-bottom: 8pt; }
+.cta-sub { font-size: 14pt; color: #0B0E14; opacity: 0.9; font-weight: 600; }
 
 .signature {
-    margin-top: 30pt;
-    color: #8A95A6;
-    font-size: 9pt;
+    margin-top: 32pt;
+    color: #9CA6B8;
+    font-size: 11pt;
     text-align: center;
 }
 """
