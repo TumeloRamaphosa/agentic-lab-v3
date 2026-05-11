@@ -16,7 +16,11 @@
 
 **A:** Right. And the answer's supposed to be "use AI". But "AI" is just a thousand more tabs.
 
-**B:** That's exactly the problem StudEx Valley OS is solving. So let's talk about it.
+**B:** That's exactly the problem StudEx Valley OS is solving. So let's talk about it. There's a brand image you need in your head first — it's Michelangelo's Creation of Adam, but in the middle of the painting, where Adam's finger almost touches God's, there's a Studex bull-and-circuit medallion glowing like a sun. That's the whole pitch in one frame: the bridge between human ambition and machine intelligence.
+
+**A:** Okay, I'm picturing it.
+
+**B:** Good. Now hold that, because everything we describe today sits underneath that image.
 
 ---
 
@@ -88,11 +92,43 @@
 
 **A:** Eleven personas total. Each with its own voice.
 
-**B:** Each with its own ElevenLabs voice. When Charlie texts you back, you hear Charlie. When Robusca opens the standup, you hear Robusca. It feels like a team.
+**B:** Each with its own ElevenLabs voice. And each with a face. Inside the dashboard and the promo video, every agent shows up as a painted-pixel character — Marvel-Avenger style, high definition, generated with NanoBanana from a prompt library we wrote. Robusca looks like Robusca. Adam looks like Adam.
+
+**A:** And Tumelo himself?
+
+**B:** Tumelo is the Commander. He shows up as Iron Man — red and gold armour, cyan arc reactor at the chest. He sits at the centre of the Factory, agents at numbered workstations around him, conveyor belts running between them.
+
+**A:** That's a vibe.
+
+**B:** It's deliberate. The whole product looks like a Marvel movie ran into a Bloomberg terminal. Speaking of which — the dashboard.
 
 ---
 
-## The daily ritual (4:00 – 5:30)
+## The dashboard (4:00 – 5:00)
+
+**A:** Walk me through what the founder actually looks at.
+
+**B:** One screen, `localhost:3141`, Cloudflare-tunnelled so it works from anywhere. Top of the screen — and this is one of my favourite touches — eight world clocks in transparent bold white. Cape Town, Dubai, London, Shanghai, Beijing, Hong Kong, New York, San Francisco.
+
+**A:** A trading-floor strip.
+
+**B:** Exactly. Because StudEx Global Markets is by definition cross-timezone. You always know what time it's becoming somewhere your partners or customers care about. Under that, a row of tabs — Council, Mission, War Room, Agents, Ledger, Night Build — each one a full view. Yellow border when idle, fills orange when active.
+
+**A:** And the main panel?
+
+**B:** The kanban. Three columns. Queued and Done get the yellow band treatment. Running gets the orange band. Each task card carries the responsible agent's pixel face on the left and the title on the right. You can drag tasks between columns. The classifier auto-routes anything that doesn't have an agent attached.
+
+**A:** Status bar?
+
+**B:** One line of mono font at the bottom. Agents online, errors today, PRs waiting on you, time until Night Build, and the killer metric — local tokens spent today versus Claude tokens spent today. Most days it reads zero Claude. That's the local-first promise made visible.
+
+**A:** And the Genesis painting?
+
+**B:** Faintly behind it all. Eighteen percent opacity. The brand is always present without competing with the data.
+
+---
+
+## The daily ritual (5:00 – 6:00)
 
 **A:** Walk me through a day.
 
@@ -116,7 +152,7 @@
 
 ---
 
-## The Night Build (5:30 – 6:30)
+## The Night Build (6:00 – 7:00)
 
 **A:** This is the bit that sounds magical.
 
@@ -140,7 +176,7 @@
 
 ---
 
-## Pricing (6:30 – 7:15)
+## Pricing (7:00 – 7:30)
 
 **A:** What does it cost a client?
 
@@ -152,7 +188,7 @@
 
 ---
 
-## Close (7:15 – 8:00)
+## Close (7:30 – 8:30)
 
 **A:** If somebody listening is the founder we described at the start — bottlenecked, answering customers at midnight — what do they do?
 

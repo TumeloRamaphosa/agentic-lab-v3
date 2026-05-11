@@ -8,7 +8,13 @@
 
 StudEx Valley OS is an **AI operating system for small businesses** that handles sales, customer support, content, research, and code — running on the founder's own Mac, with local AI models by default, and using cloud models like Claude only when necessary.
 
-It is not another chatbot. It is the operating layer that wraps a whole company: the agents, their memory, their meetings, their daily rituals, and the knowledge they share.
+It is not another chatbot. It is the operating layer that wraps a whole company: the agents, their memory, their meetings, their daily rituals, the live dashboard with eight world clocks, and the knowledge they share.
+
+## The brand image
+
+The Studex Global Markets brand is grounded in a single hero painting — Michelangelo's *Creation of Adam*, with the Sistine Chapel scene reframed: between God and Man sits the **Studex bull-and-circuit medallion**, glowing like a sun. Two hands almost touch the medallion. Underneath, the line: **"A private, future-first AI global trading community. Where vision meets intelligence. Where legacy meets technology. Where tomorrow's markets are created today."**
+
+This image is the backdrop of the dashboard, the opening shot of the promo video, and the cover of the PDF. The whole product visually says: *we are the bridge between human ambition and machine intelligence.*
 
 ---
 
@@ -57,6 +63,22 @@ The brain is replaceable. Today it's Claude. Tomorrow when something better exis
 | **Media** | The Lady | Female persona. Posts the content, tracks what works, reports audience reactions at the morning council. |
 
 Each agent has its own ElevenLabs voice. When you talk to Charlie on WhatsApp, you hear Charlie. When Robusca opens the 9am council, you hear Robusca. When the CTO reports on infra health, you hear the CTO. The personalities are real and distinct.
+
+**Each agent also has a face.** Inside the dashboard and the promo video, every agent appears as a painted-pixel character — Avenger-style, high-definition, generated with NanoBanana from the prompts in the asset library. Robusca looks like Robusca. Adam looks like Adam. Charlie looks like Charlie. The founder — Tumelo — appears as the Commander at the centre of the Factory, dressed as Iron Man in red-and-gold armour with the arc reactor glowing cyan. The agents work around him in numbered workstations, conveyor belts running between them.
+
+## The dashboard
+
+The live dashboard runs at `localhost:3141` on the founder's Mac and is tunnelled out via Cloudflare so it works from any browser, anywhere.
+
+**Top strip — eight world clocks.** Transparent and bold-white. Cape Town, Dubai, London, Shanghai, Beijing, Hong Kong, New York, San Francisco. The founder always knows what time it is at every desk that matters — whether that's a partner in the UAE, a buyer in Hong Kong, or a content creator in San Francisco.
+
+**Tabs across the top.** Council, Mission, War Room, Agents, Ledger, Night Build. Each tab is a full view. The active tab fills in orange; inactive tabs have yellow borders and yellow text. Nothing is hidden in menus.
+
+**The kanban — the heart of Mission Control.** Three vertical columns with the StudEx signature look: *Queued* and *Done* use the yellow band treatment, *Running* uses the orange band. Each band has a header chip showing the task count. Each task card carries the agent's pixel face on the left and the task title on the right, with a small mono caption underneath showing context like "PR #42" or "14d avg gap". Cards drag from one band to the next.
+
+**Status bar across the bottom.** A single mono-font line: agents online, errors today, PRs waiting on you, time until the Night Build starts, and a running cost split showing local tokens spent today versus Claude tokens spent today. In a normal day this reads something like "11 agents online · 0 errors · 2 PRs awaiting review · Night Build ready in 9h 28m · Local tokens today: 1.2M · Claude: 0". The founder can see at a glance whether they spent zero rand on cloud AI today.
+
+**The painting behind it all.** The Studex Genesis painting sits as a faint backdrop at 18% opacity, blurred slightly. The brand is always present without ever competing with the data.
 
 ---
 
@@ -154,6 +176,8 @@ All tiers include a 7-day free trial. POPIA-compliant by default. Load-shedding 
 - **Local-first.** Cloud AI is expensive. Valley OS defaults to local Ollama models running on the founder's own Mac. Claude is reserved for escalation. Most days, the cloud bill is zero.
 - **Voice-first.** Every agent has a distinct ElevenLabs voice. The 9am council sounds like a real boardroom meeting. The founder talks back. Documents can be dropped in mid-meeting and analysed live.
 - **Build-first.** Every night, two new prototypes get built. The founder wakes up to working code, not just suggestions.
+- **Time-aware.** The dashboard shows eight world clocks at the top — Cape Town, Dubai, London, Shanghai, Beijing, Hong Kong, New York, San Francisco — because a global trading community lives across time zones.
+- **Visual identity.** Every agent has a painted-pixel face. The founder, Tumelo, appears as Iron Man — the Commander at the centre of the Factory. The whole product looks like a Marvel movie ran into a Bloomberg terminal.
 - **One picture.** Every part of the system is one of five layers: vault, hive mind, agents, bridges, muscle. New team members understand the whole company in 60 seconds.
 - **Replaceable brain.** Today the orchestrator is Claude. Tomorrow it could be Gemini, GPT, or a future open-source model. The vault and the wrapper stay. The brain is a swap, not a rewrite.
 
