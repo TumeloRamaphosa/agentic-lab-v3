@@ -501,6 +501,29 @@ Tumelo will look at the Mission tab first — make sure the three-band layout re
 ```
 Do not overwrite Facebook entry.
 
+## Skills bundle (install before chunk 4)
+
+A `skills/` folder ships with this repo (copied from `agentic-lab-v3`). Six vendored upstream skills + an installer. **Run `./skills/install.sh` after chunk 1** so the build session and every Valley agent can use them:
+
+| Skill | Valley OS use |
+|---|---|
+| `/goal` (jthack/claude-goal) | Robusca's long-term-vision loop; Stop hook keeps an agent working while a goal is active |
+| `gstack` (garrytan/gstack) | CTO/Skunk Works plan→review→ship→deploy discipline; Dr Fix-It headless-browser QA + screenshot bug evidence |
+| `graphify` `/graphify` (safishamsi/graphify) | Research/OpenFang turn vault + SGM data + codebases into knowledge graphs; future dashboard "Graph" view |
+| `sp-verification-before-completion` (obra/superpowers) | Hard gate wired into the Night Build test-loop and Council "done" claims — evidence before assertions |
+| `sp-writing-plans` · `sp-brainstorming` · `sp-executing-plans` · `sp-test-driven-development` · `sp-systematic-debugging` · `sp-subagent-driven-development` · `sp-using-git-worktrees` (obra/superpowers) | CTO + Skunk Works engineering core; Cursor Background Agents run inside git worktrees; Night Build planning |
+| `uiux-*` (nextlevelbuilder/ui-ux-pro-max) | The Lady (Media) + the Hono `:3141` dashboard styling, brand voice, client decks, banners |
+| `remotion-best-practices` (remotion-dev) | The Lady regenerates `promo/remotion/` clips with correct Remotion patterns |
+
+Wiring requirements:
+- The **Night Build `test-loop`** must invoke `sp-verification-before-completion` before writing any ✅ status into `proposals/<date>/INDEX.md`.
+- The **09:00 Council** "done" reports must pass `sp-verification-before-completion` before an agent claims a task complete.
+- **Robusca** owns a persistent `/goal` for the active quarter; she reconciles it at every 08:00 standup.
+- The **dashboard build (chunk 12)** should consult `uiux-design-system` + `uiux-ui-styling` for token architecture so the orange-band/yellow-text system stays consistent.
+- Add `skills/.gitignore`-style ignores (`*.egg-info/`, `__pycache__/`, `.gstack/`, `graphify-out/`) to the repo `.gitignore`.
+
+Optional (frameworks — clone on the Mac only if needed, do NOT vendor): `kyegomez/OpenMythos` (repo overview — already in `integrations.json`), `supermemoryai/openclaw-supermemory` (evaluate vs the built-in 3-layer memory; do not run both), `21st-dev/magic-mcp` (wire as an MCP server in `.cursor/mcp.json` if richer UI scaffolding is needed).
+
 ## Ollama auto-install (in `infra/scripts/mac-orchestrator.sh`)
 ```bash
 # Install Ollama if missing
