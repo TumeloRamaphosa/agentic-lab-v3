@@ -1,5 +1,5 @@
 import React from "react";
-import { Img, staticFile } from "remotion";
+import { staticFile } from "remotion";
 import { PixelSprite } from "./PixelSprite";
 import { characters, CharacterKey } from "./characters";
 
@@ -21,6 +21,10 @@ export const Character: React.FC<{
 }> = ({ who, size = 160, glow, preferHd = true, label, labelColor = "#FFD60A" }) => {
   const c = characters[who];
   const hdPath = `agents/${who}.png`;
+  // Native <img> (not Remotion <Img>) so a missing HD asset never registers a
+  // delayRender() that would fail the whole render. If it errors, we drop to
+  // the always-valid SVG pixel sprite.
+  const [hdOk, setHdOk] = React.useState(preferHd);
 
   return (
     <div
@@ -32,14 +36,10 @@ export const Character: React.FC<{
       }}
     >
       <div style={{ position: "relative", width: size, height: size * 1.25 }}>
-        {preferHd && (
-          <Img
+        {hdOk ? (
+          <img
             src={staticFile(hdPath)}
-            onError={(e) => {
-              (e.target as HTMLImageElement).style.display = "none";
-              const fallback = (e.target as HTMLImageElement).nextElementSibling as HTMLElement | null;
-              if (fallback) fallback.style.display = "block";
-            }}
+            onError={() => setHdOk(false)}
             style={{
               width: size,
               height: size * 1.25,
@@ -50,16 +50,17 @@ export const Character: React.FC<{
               inset: 0,
             }}
           />
+        ) : (
+          <div style={{ position: "absolute", inset: 0 }}>
+            <PixelSprite
+              matrix={c.matrix}
+              palette={c.palette}
+              width={size}
+              height={size * 1.25}
+              glow={glow}
+            />
+          </div>
         )}
-        <div style={{ display: preferHd ? "none" : "block", position: "absolute", inset: 0 }}>
-          <PixelSprite
-            matrix={c.matrix}
-            palette={c.palette}
-            width={size}
-            height={size * 1.25}
-            glow={glow}
-          />
-        </div>
       </div>
       {label && (
         <div
