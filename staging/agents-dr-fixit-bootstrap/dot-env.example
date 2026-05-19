@@ -1,0 +1,57 @@
+# Rename to .env in agents-dr.fixit after copying. NEVER commit .env.
+
+# Default brain (any agent without explicit model uses these)
+DEFAULT_PROVIDER=ollama
+DEFAULT_MODEL=qwen2.5-coder:7b
+ESCALATION_PROVIDER=anthropic
+ESCALATION_MODEL=claude-sonnet-4-6
+
+# Provider keys (all optional — fill what you use)
+ANTHROPIC_API_KEY=
+OPENAI_API_KEY=
+OPENROUTER_API_KEY=
+GROQ_API_KEY=
+
+# Local
+OLLAMA_BASE_URL=http://localhost:11434
+MESH_LLM_BASE_URL=http://localhost:9337/v1
+
+# Voice
+ELEVENLABS_API_KEY=
+
+# Bridges
+SLACK_BOT_TOKEN=
+SLACK_SIGNING_SECRET=
+SLACK_APP_TOKEN=
+DISCORD_BOT_TOKEN=
+DISCORD_GUILD_ID=
+
+# Connectors
+COMPOSIO_API_KEY=
+
+# Cursor
+CURSOR_API_KEY=
+CURSOR_DEFAULT_MODEL=ollama/qwen2.5-coder:7b
+
+# GitHub
+GITHUB_TOKEN=
+
+# Vault
+VAULT_PATH=/Users/tumeloramaphosa/Documents/Obsidian Vault/2nd Brain
+
+# Kill switches (all default OFF until smoke passes)
+SCHEDULER_ENABLED=false
+MISSION_AUTO_ASSIGN_ENABLED=true
+EXFIL_GUARD_ENABLED=true
+WAR_ROOM_ENABLED=true
+COUNCIL_ENABLED=false
+NIGHT_BUILD_ENABLED=false
+NIGHT_BUILD_PRODUCT_COUNT=2
+NIGHT_BUILD_MODE=strict
+CURSOR_BACKGROUND_AGENTS_ENABLED=false
+IDLE_HOURS=22-02
+KILL_PHRASE=studex stop the world
+
+# Allowlists
+ALLOWLISTED_SLACK_USER_IDS=
+ALLOWLISTED_DISCORD_USER_IDS=

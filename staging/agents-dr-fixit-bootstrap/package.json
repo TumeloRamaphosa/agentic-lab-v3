@@ -1,0 +1,26 @@
+{
+  "name": "studex-valley-os",
+  "version": "0.1.0",
+  "private": true,
+  "type": "module",
+  "description": "StudEx Valley OS — a Hive Mind wrapper on the Claude Agent SDK. Local-Ollama-first role-based agents, daily rituals, Night Build, Hono dashboard.",
+  "engines": { "node": ">=20" },
+  "workspaces": [
+    "valley",
+    "bridges/slack",
+    "bridges/discord"
+  ],
+  "scripts": {
+    "doctor": "node factory/scripts/doctor.mjs",
+    "mission": "node factory/scripts/mission.mjs",
+    "council": "node factory/scripts/council.mjs",
+    "warroom": "node factory/scripts/warroom.mjs",
+    "night-build": "node factory/scripts/night-build.mjs",
+    "snapshot": "node factory/scripts/snapshot.mjs",
+    "heartbeat": "node factory/scripts/heartbeat.mjs",
+    "cost": "node factory/scripts/cost.mjs",
+    "build": "tsc -b",
+    "smoke": "node valley/dist/index.js --smoke",
+    "dashboard:dev": "node valley/dist/dashboard/server.js"
+  }
+}

@@ -1,0 +1,16 @@
+# Rename to .gitignore in agents-dr.fixit after copying.
+.env
+.env.local
+node_modules/
+dist/
+*.db
+*.db-journal
+*.log
+.DS_Store
+graphify-out/
+*.egg-info/
+__pycache__/
+.gstack/
+factory/projects/*/workspace/
+factory/projects/*/.checkpoint.json
+!factory/projects/.gitkeep
