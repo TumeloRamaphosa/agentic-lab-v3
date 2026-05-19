@@ -8,3 +8,6 @@ factory/projects/*/.env
 factory/projects/*/deliverables/
 factory/projects/*/logs/
 !factory/inbox/.gitkeep
+
+# graphify generated output (regenerate with: /graphify docs)
+graphify-out/
