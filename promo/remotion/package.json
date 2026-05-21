@@ -7,7 +7,9 @@
     "preview": "remotion studio",
     "build": "remotion render Promo out/studex-valley-os-promo.mp4",
     "build:web": "remotion render Promo out/studex-valley-os-promo.webm --codec=vp8",
-    "render:still": "remotion still Promo out/poster.png --frame=60"
+    "render:still": "remotion still Promo out/poster.png --frame=60",
+    "sphere": "remotion render VaultSphere out/vault-sphere.mp4",
+    "sphere:sbs": "remotion render VaultSphereSBS out/vault-sphere-sbs.mp4"
   },
   "dependencies": {
     "@remotion/cli": "^4.0.250",
