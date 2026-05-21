@@ -1,0 +1,48 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1" />
+    <title>StudEx · Vault Sphere (XREAL)</title>
+    <style>
+      :root { --bg:#070910; --ink:#FFD60A; --ink-dim:#FFE066; --accent:#FF7A1A; }
+      * { box-sizing: border-box; }
+      html,body { margin:0; height:100%; background:var(--bg); color:var(--ink);
+        font-family: Inter, system-ui, -apple-system, sans-serif; overflow:hidden; }
+      #app { position:fixed; inset:0; }
+      #hud { position:fixed; top:16px; left:16px; z-index:10; pointer-events:none; }
+      #hud .kicker { color:var(--accent); font-size:13px; letter-spacing:4px; font-weight:700; }
+      #hud .title { color:var(--ink); font-size:26px; font-weight:800; margin-top:2px; }
+      #hud .meta { color:var(--ink-dim); font-size:13px; font-family:monospace; margin-top:2px; }
+      #bar { position:fixed; bottom:16px; left:50%; transform:translateX(-50%); z-index:10;
+        display:flex; gap:8px; }
+      .btn { background:rgba(11,14,20,0.7); color:var(--ink); border:2px solid var(--accent);
+        border-radius:10px; padding:8px 16px; font-weight:700; font-size:13px; letter-spacing:1px;
+        text-transform:uppercase; cursor:pointer; }
+      .btn.on { background:var(--accent); color:#0B0E14; }
+      #panel { position:fixed; top:16px; right:16px; width:320px; max-height:70vh; overflow:auto;
+        z-index:10; background:rgba(11,14,20,0.85); border:2px solid var(--accent); border-radius:14px;
+        padding:16px; display:none; }
+      #panel h2 { color:var(--ink); font-size:18px; margin:0 0 6px; }
+      #panel .src { color:var(--accent); font-size:12px; font-family:monospace; margin-bottom:8px; word-break:break-all; }
+      #panel .links { color:var(--ink-dim); font-size:13px; }
+      #panel .links b { color:var(--ink); }
+    </style>
+  </head>
+  <body>
+    <div id="app"></div>
+    <div id="hud">
+      <div class="kicker">STUDEX · 2ND BRAIN</div>
+      <div class="title">Vault Knowledge Sphere</div>
+      <div class="meta" id="meta">loading…</div>
+    </div>
+    <div id="panel"></div>
+    <div id="bar">
+      <button class="btn" id="btn-stereo" title="Side-by-Side 3D for XREAL">SBS 3D</button>
+      <button class="btn" id="btn-narrate" title="Speak nodes on click">🔊 Voice</button>
+      <button class="btn" id="btn-spin" title="Auto-orbit">Spin</button>
+      <button class="btn" id="btn-xr" title="Enter WebXR (if supported)">Enter XR</button>
+    </div>
+    <script type="module" src="/src/main.js"></script>
+  </body>
+</html>

@@ -1,0 +1,23 @@
+{
+  "name": "studex-xreal-viewer",
+  "version": "0.1.0",
+  "private": true,
+  "type": "module",
+  "description": "Interactive 3D vault knowledge graph for XREAL One Pro — orbit/click, real-time Side-by-Side stereo, ElevenLabs voice. Three.js + Vite.",
+  "scripts": {
+    "dev": "vite",
+    "build": "vite build",
+    "preview": "vite preview --port 4321",
+    "serve": "node server.mjs"
+  },
+  "dependencies": {
+    "three": "^0.169.0"
+  },
+  "devDependencies": {
+    "playwright": "^1.60.0",
+    "vite": "^5.4.0"
+  },
+  "engines": {
+    "node": ">=20"
+  }
+}
