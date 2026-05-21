@@ -393,6 +393,21 @@ proposals/<YYYY-MM-DD>/
 ## Memory (3-layer)
 L1 SQLite FTS5 · L2 `nomic-embed-text` 768d + `sqlite-vec` cosine · L3 salience + decay + pin. Tables: `memories`, `embeddings`, `audit_log`, `mission`, `agents_status`, `meetings`.
 
+## RAG over the vault (provider-abstracted VectorStore)
+
+The 2nd Brain vault is the **source of truth**; the vector store is a disposable **index** over it. `valley/src/core/memory.ts` exposes a `VectorStore` interface with two backends, chosen by `VECTOR_STORE` env:
+
+- `sqlite` (default) — local `sqlite-vec`, free, private, POPIA-clean. Use day-to-day.
+- `pinecone` (opt-in) — cloud, for a large vault or shared RAG across the 5 machines without running the mesh. Chunks leave the Mac; gate behind 🛑 STOP #2 (outbound).
+
+Embeddings are **always local** via Ollama `nomic-embed-text` (768d) — even with Pinecone you pay only storage/query, never embeddings. Pinecone index MUST be created at dimension 768.
+
+A working reference implementation already exists at `rag/` (copied from `agentic-lab-v3`): `chunk.mjs` (heading-aware chunker), `embed.mjs` (ollama + fake), `stores/{memory,sqlite,pinecone}.mjs`, `ingest.mjs`, `query.mjs`, `cli.mjs`, and a passing offline test. Port these into `valley/src/core/memory.ts` keeping the same `VectorStore` contract; do not rewrite from scratch. Wire the **Memory Inject** step (ClaudeClaw V3) to call `retrieveContext()` before every agent turn and inject cited vault chunks.
+
+Add a **vault-index ritual**: `factory/scripts/rag.mjs ingest` runs at 07:00 (after snapshot) so the index tracks the vault daily; `mission`/Council/Night-Build agents query it for context.
+
+Env additions: `VECTOR_STORE=sqlite`, `PINECONE_API_KEY=`, `PINECONE_INDEX_HOST=`, `PINECONE_NAMESPACE=studex-vault` (all blank/sqlite by default; Pinecone is opt-in).
+
 ## Audit log
 Append-only. Every tool call · kill-switch flip · mission move · meeting event · provider switch. Correlation IDs. 90-day prune; pinned rows survive.
 

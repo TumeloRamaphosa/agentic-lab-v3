@@ -1,0 +1,20 @@
+{
+  "name": "studex-rag",
+  "version": "0.1.0",
+  "private": true,
+  "type": "module",
+  "description": "RAG layer for StudEx Valley OS — index the Obsidian 2nd Brain vault, query it for agent context. Local sqlite-vec by default, Pinecone opt-in.",
+  "bin": { "studex-rag": "./cli.mjs" },
+  "scripts": {
+    "test": "node test/rag.test.mjs",
+    "ingest": "node cli.mjs ingest",
+    "query": "node cli.mjs query",
+    "count": "node cli.mjs count"
+  },
+  "dependencies": {
+    "better-sqlite3": "^11.0.0",
+    "sqlite-vec": "^0.1.6"
+  },
+  "optionalDependencies": {},
+  "engines": { "node": ">=20" }
+}
