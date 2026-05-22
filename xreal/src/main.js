@@ -51,7 +51,7 @@ async function load() {
   meta.textContent = `${graph.nodes.length} notes · ${graph.links.length} links · ${communities} communities`;
 }
 
-function showPanel(mesh) {
+async function showPanel(mesh) {
   const u = mesh.userData;
   const nb = (graphApi.neighbours.get(u.id) ?? []).slice(0, 8)
     .map((id) => graphApi.byId.get(id)?.userData.label).filter(Boolean);
@@ -60,10 +60,25 @@ function showPanel(mesh) {
     `<h2>${u.label}</h2>` +
     `<div class="src">${u.source || u.id}</div>` +
     `<div class="links"><b>${u.communityLabel}</b> · degree ${u.degree}</div>` +
-    (nb.length ? `<div class="links" style="margin-top:8px">Linked to:<br>• ${nb.join("<br>• ")}</div>` : "");
-  if (voiceEnabled()) {
-    speak(`${u.label}. ${u.communityLabel}. Connected to ${nb.length} notes.`);
-  }
+    (nb.length ? `<div class="links" style="margin-top:8px">Linked to:<br>• ${nb.join("<br>• ")}</div>` : "") +
+    `<div class="answer" id="answer" style="margin-top:12px;color:#FFE066;font-size:13px"></div>`;
+
+  // Ask the vault (RAG) about this node and speak the answer.
+  const ansEl = document.getElementById("answer");
+  try {
+    ansEl.textContent = "…asking the vault…";
+    const r = await fetch(`/ask?q=${encodeURIComponent(u.label)}`);
+    if (r.ok) {
+      const { answer, sources } = await r.json();
+      ansEl.innerHTML = `<b style="color:#FF7A1A">Answer:</b> ${answer}` +
+        (sources?.length ? `<div style="margin-top:6px;opacity:.7;font-family:monospace">${sources.slice(0,3).join(" · ")}</div>` : "");
+      if (voiceEnabled()) speak(answer);
+      return;
+    }
+  } catch { /* /ask unavailable (e.g. vite dev with no server) */ }
+  // Fallback: speak the node summary.
+  ansEl.textContent = "";
+  if (voiceEnabled()) speak(`${u.label}. ${u.communityLabel}. Connected to ${nb.length} notes.`);
 }
 
 function onClick(ev) {

@@ -10,6 +10,7 @@
 import { createServer } from "node:http";
 import { readFile } from "node:fs/promises";
 import { extname, join, normalize } from "node:path";
+import { ask, indexInfo } from "./ask.mjs";
 
 const PORT = process.env.PORT || 4321;
 const ROOT = join(process.cwd(), "dist");
@@ -37,6 +38,22 @@ createServer(async (req, res) => {
   if (u.pathname === "/tts") {
     try { await tts(u.searchParams.get("text") || "", u.searchParams.get("voice"), res); }
     catch (e) { res.writeHead(500).end(String(e)); }
+    return;
+  }
+  if (u.pathname === "/ask") {
+    try {
+      const out = await ask({
+        question: u.searchParams.get("q") || "",
+        agent: u.searchParams.get("agent") || undefined,
+      });
+      res.writeHead(200, { "content-type": "application/json" });
+      res.end(JSON.stringify(out));
+    } catch (e) { res.writeHead(500).end(JSON.stringify({ error: String(e) })); }
+    return;
+  }
+  if (u.pathname === "/index-info") {
+    try { res.writeHead(200, { "content-type": "application/json" }); res.end(JSON.stringify(await indexInfo())); }
+    catch (e) { res.writeHead(500).end(JSON.stringify({ error: String(e) })); }
     return;
   }
   let p = normalize(u.pathname === "/" ? "/index.html" : u.pathname).replace(/^(\.\.[/\\])+/, "");

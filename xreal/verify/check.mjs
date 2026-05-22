@@ -6,7 +6,8 @@ import { spawn } from "node:child_process";
 import { setTimeout as sleep } from "node:timers/promises";
 
 const PORT = 4321;
-const server = spawn("node", ["server.mjs"], { env: { ...process.env, PORT }, stdio: ["ignore", "pipe", "pipe"] });
+// RAG_FAKE=1 so /ask works offline (no Ollama in CI); real runs use Ollama.
+const server = spawn("node", ["server.mjs"], { env: { ...process.env, PORT, RAG_FAKE: "1" }, stdio: ["ignore", "pipe", "pipe"] });
 let log = ""; server.stdout.on("data", (d) => (log += d)); server.stderr.on("data", (d) => (log += d));
 
 const done = (code, msg) => { console[code ? "error" : "log"](msg); server.kill("SIGKILL"); process.exit(code); };
@@ -39,13 +40,24 @@ try {
     return !!(c.getContext("webgl2") || c.getContext("webgl"));
   });
 
+  // Verify the /ask RAG endpoint answers through the running server.
+  const askResult = await page.evaluate(async () => {
+    const r = await fetch("/ask?q=" + encodeURIComponent("how does the night build work"));
+    if (!r.ok) return { ok: false, status: r.status };
+    const j = await r.json();
+    return { ok: true, hasAnswer: !!j.answer, sources: (j.sources || []).length };
+  });
+
   await sleep(1500);
   await page.screenshot({ path: "dist/xreal-verify.png" });
   await browser.close();
+
+  if (!askResult.ok || !askResult.hasAnswer)
+    done(1, "FAIL: /ask RAG endpoint did not answer: " + JSON.stringify(askResult));
 
   // favicon.ico 404 and the no-key /tts 204 are environmental, not app errors.
   const realErrors = errors.filter((e) => !/favicon|tts|\b204\b|Failed to load resource.*40[34]/i.test(e));
   if (!webgl) done(1, "FAIL: no WebGL context on canvas");
   if (realErrors.length) done(1, "FAIL: console errors:\n  " + realErrors.slice(0, 6).join("\n  "));
-  done(0, `PASS: canvas+WebGL up, graph loaded (${metaText}), 0 console errors, screenshot dist/xreal-verify.png`);
+  done(0, `PASS: canvas+WebGL up, graph loaded (${metaText}), /ask answered (${askResult.sources} sources), 0 console errors, screenshot dist/xreal-verify.png`);
 } catch (e) { done(1, "FAIL: " + e.message); }

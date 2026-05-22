@@ -35,6 +35,25 @@ mode. This app gives you *interactive* depth without needing WebXR:
 6. **Enter XR** lights up only on devices with WebXR `immersive-vr` (e.g. Quest).
    On XREAL it shows "XR n/a" — use **SBS 3D** instead (that's the supported path).
 
+## Ask the vault (RAG loop)
+
+Clicking a node now **asks your 2nd Brain** about that topic and speaks the answer:
+
+1. Click node → `GET /ask?q=<label>` (server, `ask.mjs`)
+2. `ask.mjs` retrieves the top vault chunks via `rag/` (same engine as the RAG module)
+3. If Ollama is reachable it composes a 2-3 sentence spoken answer; otherwise it
+   returns the most relevant chunk verbatim
+4. The answer + cited sources show in the panel and are spoken via ElevenLabs
+
+The server builds the index once at first `/ask` from `VAULT_PATH` (falls back to
+the repo `docs/` for local demo). Offline/CI: `RAG_FAKE=1 npm run serve` uses the
+deterministic embedder so `/ask` works with no Ollama.
+
+Per-agent answers: pass `&agent=Charlie` (and a node-specific voice) so a
+Studex-Meat node is answered by Charlie in his ElevenLabs voice, grounded in the
+vault. Memory (who asked, what was decided) layers on via the L0–L3 model in
+`docs/MEGA_PROMPT.md`.
+
 ## Voice (ElevenLabs)
 
 - Click **🔊 Voice** to enable. Then clicking a node speaks its label + community

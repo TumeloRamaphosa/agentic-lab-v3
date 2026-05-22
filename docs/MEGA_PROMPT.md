@@ -408,6 +408,23 @@ Add a **vault-index ritual**: `factory/scripts/rag.mjs ingest` runs at 07:00 (af
 
 Env additions: `VECTOR_STORE=sqlite`, `PINECONE_API_KEY=`, `PINECONE_INDEX_HOST=`, `PINECONE_NAMESPACE=studex-vault` (all blank/sqlite by default; Pinecone is opt-in).
 
+**RAG vs memory — keep them distinct.** RAG (`rag/`) retrieves facts from the vault to ground an answer (stateless, cited). Memory (below) is what an agent *remembers across sessions* (stateful: user prefs, decisions, task state). Build both.
+
+## Memory consolidation (L0–L3, TencentDB-Agent-Memory model)
+
+Model the agent-memory layer on `Tencent/TencentDB-Agent-Memory` (same SQLite + sqlite-vec stack as `rag/`, so no new infra):
+
+- **L0** raw conversations + tool outputs (the audit/chat log)
+- **L1** atomic facts extracted from L0 (every N turns, configurable)
+- **L2** scenario blocks grouping related episodes
+- **L3** user/customer personas distilling preferences + patterns
+- **Symbolic memory**: encode live task state as a Mermaid diagram + offload heavy logs to files, referenced by `node_id` — keeps injected context light.
+- Retrieval: hybrid BM25 + embedding + RRF; full traceability L3→L0.
+
+Implementation: extraction runs in the **22:00 Night Build / Idle Hours** window (local Ollama, no Claude spend) — it reads the day's L0, writes L1/L2/L3 back into the vault under `${VAULT_PATH}/StudEx-Valley-OS/memory/`. Robusca consults L3 personas at 08:00; the Council uses L2 scenarios. Memory stays **local** (private, POPIA, token-cheap) — do NOT put memory in Pinecone; Pinecone is for the RAG index only.
+
+Optional adoption: TencentDB ships an **OpenClaw plugin** and **Hermes Gateway adapter** — both already in the agent roster. If you adopt the package directly, wire its `tdai_memory_search` / `tdai_conversation_search` tools into agents' `tools.allow`; otherwise port the L0–L3 schema into `valley/src/core/memory.ts`. Keep one memory system — do not run TencentDB and a second memory layer simultaneously.
+
 ## Audit log
 Append-only. Every tool call · kill-switch flip · mission move · meeting event · provider switch. Correlation IDs. 90-day prune; pinned rows survive.
 
