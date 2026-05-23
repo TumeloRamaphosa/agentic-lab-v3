@@ -520,6 +520,16 @@ open http://localhost:3141          # world clocks animate; kanban renders with 
 ```
 Tumelo will look at the Mission tab first — make sure the three-band layout renders correctly with empty bands too.
 
+### 2nd Brain page + per-business pages (driven by `factory/config/businesses.json`)
+
+`factory/config/businesses.json` is the single registry: each business has a `vaultFolder`, the `machine` it resides on, its `agents`, its `vectorNamespace`, channels, and colour. The dashboard generates pages from it — never hard-code a business.
+
+- **2nd Brain tab** — the vault↔vector control panel. Reads `rag/status.json` (written by the daily sync). Shows: vault path, last sync time (green if < 25h old, amber otherwise), backend (sqlite/Pinecone), embedder, total chunks, and a per-namespace table (whole vault + each business: files → chunks, machine). A "Re-sync now" button runs `node rag/sync.mjs`. This is the live Obsidian + Pinecone connection, refreshed every day at 07:00.
+- **Per-business pages** — one tab per entry in `businesses.json` (Studex Meat, SGM, Studex Coffee). Each shows: the business's agents (with on/off + voice), its machine (from `machines[]`), its slice of the ledger, its open missions filtered to its agents, and its index health (chunk count + last sync for its namespace). The colour theming uses the business's `color`.
+- **Machine residence** — render which machine each business "lives on" (e.g. Studex Coffee → Razer 2017) so it's clear where data + compute sit. Pull from `businesses[].machine` joined to `machines[]`.
+
+**Daily sync ritual** — add to chunk 7/12 + cron: `0 7 * * *` runs `node rag/sync.mjs`, which re-indexes the whole vault + each business folder into its own namespace (sqlite db-per-business locally; Pinecone namespace when `VECTOR_STORE=pinecone`) and writes `rag/status.json`. Agents query their business's namespace for scoped RAG; the 2nd Brain page reads the status. Pinecone holds only the RAG index (opt-in); memory stays local.
+
 ## Composio (`factory/config/composio.json`)
 ```json
 {

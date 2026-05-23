@@ -39,6 +39,24 @@ node cli.mjs count
 
 No code changes — the `VectorStore` interface is the same for both.
 
+## Daily 2nd Brain sync (per-business)
+
+`sync.mjs` re-indexes the whole vault **and** each business folder into its own
+namespace, driven by `factory/config/businesses.json`. It writes `rag/status.json`
+(last sync, backend, per-business chunk counts + machine) — the dashboard's
+**2nd Brain page** reads this to show the live Obsidian↔Pinecone connection.
+
+```bash
+VAULT_PATH="…/2nd Brain" node sync.mjs        # all businesses → sqlite (default)
+VECTOR_STORE=pinecone node sync.mjs           # mirror to Pinecone namespaces
+RAG_FAKE=1 VECTOR_STORE=memory node sync.mjs  # offline smoke
+```
+
+Wire to cron at **07:00 SAST** (matches `businesses.json` → `vault.sync.schedule`)
+so the index tracks the vault every day. Each business gets its own namespace
+(sqlite db-per-business; Pinecone namespace) so agents query only their business's
+context.
+
 ## Offline smoke (no Ollama / no Pinecone)
 
 ```bash

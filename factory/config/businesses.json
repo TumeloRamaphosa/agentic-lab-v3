@@ -1,0 +1,55 @@
+{
+  "$comment": "Single source of truth for the dashboard's per-business pages, the daily vault->vector sync, and agent routing. Edit machine ids + vault folders to match your setup. The dashboard generates one page per business from this file.",
+  "vault": {
+    "path": "${VAULT_PATH}",
+    "root": "StudEx-Valley-OS",
+    "sync": {
+      "schedule": "0 7 * * *",
+      "backends": ["sqlite", "pinecone"],
+      "note": "07:00 SAST daily: re-index each business folder into its own namespace. Local sqlite always; Pinecone when VECTOR_STORE=pinecone or PINECONE mirroring is on."
+    }
+  },
+  "businesses": [
+    {
+      "slug": "studex-meat",
+      "name": "Studex Meat",
+      "tagline": "Online meat marketplace",
+      "vaultFolder": "businesses/studex-meat",
+      "machine": "mac-mini-m4",
+      "vectorNamespace": "studex-meat",
+      "agents": ["charlie", "cashclaw", "denchclaw"],
+      "channels": ["whatsapp", "slack"],
+      "color": "#FF7A1A"
+    },
+    {
+      "slug": "sgm",
+      "name": "Studex Global Markets",
+      "tagline": "Private AI global trading community",
+      "vaultFolder": "businesses/sgm",
+      "machine": "mac-mini-m4",
+      "vectorNamespace": "sgm",
+      "agents": ["research", "openfang", "cashclaw"],
+      "channels": ["slack", "discord"],
+      "color": "#FFD60A"
+    },
+    {
+      "slug": "studex-coffee",
+      "name": "Studex Coffee",
+      "tagline": "Coffee + grain campaigns",
+      "vaultFolder": "businesses/studex-coffee",
+      "machine": "razer-2017",
+      "vectorNamespace": "studex-coffee",
+      "agents": ["the-lady", "research"],
+      "channels": ["slack"],
+      "color": "#9BE564"
+    }
+  ],
+  "machines": [
+    { "id": "mbp-m1",        "name": "MacBook Pro M1",   "ram": "32GB", "role": "orchestrator (Hive Mind, rituals, Night Build)" },
+    { "id": "mac-mini-m4",   "name": "Mac Mini M4",      "ram": "16GB", "storage": "256GB + 6TB ext", "role": "always-on NAS · vault host · dashboard :3141 · Cloudflare tunnel" },
+    { "id": "win-gpu",       "name": "Windows GPU Desktop", "ram": "16GB", "gpu": "2x 8GB", "storage": "2TB", "role": "mesh-llm heavy models" },
+    { "id": "legion-go-2",   "name": "Lenovo Legion Go 2", "ram": "16GB", "storage": "1TB", "role": "roaming research / demos" },
+    { "id": "win-laptop",    "name": "Windows Laptop",   "ram": "16GB", "gpu": "8GB", "role": "voice plane (Whisper / Pipecat)" },
+    { "id": "razer-2017",    "name": "Razer (2017)",     "role": "legacy / dedicated business host" }
+  ]
+}

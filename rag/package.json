@@ -9,7 +9,8 @@
     "test": "node test/rag.test.mjs",
     "ingest": "node cli.mjs ingest",
     "query": "node cli.mjs query",
-    "count": "node cli.mjs count"
+    "count": "node cli.mjs count",
+    "sync": "node sync.mjs"
   },
   "dependencies": {
     "better-sqlite3": "^11.0.0",
