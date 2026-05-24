@@ -93,7 +93,7 @@ agents-dr.fixit/
 │     │  ├─ memory.ts                        FTS5 + sqlite-vec(768d) + salience; decay + pin
 │     │  ├─ audit.ts                         Append-only, correlation IDs, 90-day prune
 │     │  ├─ exfil-guard.ts
-│     │  └─ cost-footer.ts                   Daily summary writer (NOT per-message)
+│     │  └─ cost-footer.ts                   Optimization-scored routing gate + daily summary
 │     ├─ tools/
 │     │  └─ cursor.ts                        Cursor IDE open + cursor-agent CLI + Cursor API (background agents)
 │     ├─ agents/{loader.ts, runner.ts}
@@ -316,6 +316,15 @@ Before first real call, hit `GET /v0/agents` once with the key to verify the sch
 ### 1. 08:00 · Robusca Standup
 Robusca reads `daily/<yesterday>.md`, `ledger/`, mission Queued, `proposals/<today>/INDEX.md`. Writes `daily/<today>.md` with: yesterday wins/misses · sales/social/costs delta · today's three priorities · items needing Tumelo's ack.
 
+**Morning Digest structure (from OpenJarvis — see `reference/OPENJARVIS_FIT.md`).** The standup note + spoken digest cover, in order:
+1. **Inbox** — overnight email triage via Composio Gmail: needs-reply vs noise.
+2. **Calendar** — today's meetings + a pre-flight per meeting (attendees, last thread, relevant vault notes).
+3. **Numbers** — sales (CashClaw) · costs vs break-even (ledger) · social (The Lady).
+4. **Overnight** — Night Build proposals + Idle-Hours findings.
+5. **News/Research** — OpenFang's partner/sector/new-agent scan.
+6. **Today's 3 priorities** + a clearly-labelled human-ack block.
+All spoken in Robusca's ElevenLabs voice.
+
 ### 2. 09:00 · StudEx Agent Council Meeting
 Daily all-hands in the War Room. Robusca chairs. Voice-driven (ElevenLabs per agent). Transcript streams to `meetings/<date>-council.md`. Action items append to mission control.
 
@@ -427,6 +436,21 @@ Optional adoption: TencentDB ships an **OpenClaw plugin** and **Hermes Gateway a
 
 ## Audit log
 Append-only. Every tool call · kill-switch flip · mission move · meeting event · provider switch. Correlation IDs. 90-day prune; pinned rows survive.
+
+## Cost Footer — optimization-scored routing (from OpenJarvis)
+
+`cost-footer.ts` is not just a logger — it is the **routing gate**. When the classifier has a task and a set of candidate models (an agent's `primary` + `alternates` + `escalate`), the Cost Footer scores each and picks the cheapest that clears the task's quality bar. Treats energy/latency/$ as first-class alongside accuracy (Tumelo's #1 goal: minimize spend).
+
+```
+score(model) = w_quality * expected_quality(task_class, model)
+             - w_dollar  * dollar_cost(model)        # 0 for local Ollama
+             - w_latency * expected_latency_s(model)
+             - w_energy  * energy_estimate(model)     # local watts × time
+pick argmax(score) where expected_quality >= min_quality(task_class)
+```
+- Default weights favour local: Ollama wins unless the classifier flags the task class "needs escalation" OR local output fails the `sp-verification-before-completion` gate → then escalate to Claude.
+- Log the chosen model + runner-up + reason to `daily/<today>.md` (NOT per-message).
+- Weights configurable in `factory/config/cost-policy.json`.
 
 ## Kill switches (.env)
 ```
@@ -565,6 +589,8 @@ Wiring requirements:
 - Add `skills/.gitignore`-style ignores (`*.egg-info/`, `__pycache__/`, `.gstack/`, `graphify-out/`) to the repo `.gitignore`.
 
 Optional (frameworks — clone on the Mac only if needed, do NOT vendor): `kyegomez/OpenMythos` (repo overview — already in `integrations.json`), `supermemoryai/openclaw-supermemory` (evaluate vs the built-in 3-layer memory; do not run both), `21st-dev/magic-mcp` (wire as an MCP server in `.cursor/mcp.json` if richer UI scaffolding is needed).
+
+**Skill standard:** keep every skill's `SKILL.md` frontmatter (name, description, triggers, allowed-tools) conformant with the `agentskills.io` standard (used by OpenJarvis — see `reference/OPENJARVIS_FIT.md`) so skills are portable both ways and we can pull from that catalog. Document the mapping in `docs/SKILLS.md`. Do NOT run OpenJarvis as a second orchestrator — harvest its patterns (optimization-scored Cost Footer + Morning Digest standup, both already folded in above), not its codebase.
 
 ## Ollama auto-install (in `infra/scripts/mac-orchestrator.sh`)
 ```bash
