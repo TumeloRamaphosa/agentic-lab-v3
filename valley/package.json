@@ -1,0 +1,14 @@
+{
+  "name": "studex-valley-engine",
+  "version": "0.1.0",
+  "private": true,
+  "type": "module",
+  "description": "Valley OS core engine (reference) — provider-abstracted models, kill switches, audit, cost-routing, classifier, agents, mission, rituals. Runs offline with a fake provider.",
+  "bin": { "valley": "./cli.mjs" },
+  "scripts": {
+    "test": "node test/valley.test.mjs",
+    "standup": "VALLEY_FAKE_MODEL=1 node cli.mjs standup",
+    "council": "VALLEY_FAKE_MODEL=1 node cli.mjs council"
+  },
+  "engines": { "node": ">=20" }
+}
