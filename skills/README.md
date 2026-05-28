@@ -26,6 +26,7 @@ Custom target: `SKILLS_DIR=/path ./skills/install.sh`
 | `sp-test-driven-development` · `sp-systematic-debugging` · `sp-requesting-code-review` · `sp-receiving-code-review` · `sp-finishing-a-development-branch` · `sp-using-git-worktrees` · `sp-dispatching-parallel-agents` | obra/superpowers | **Super powers — engineering core.** CTO + Skunk Works build discipline. Cursor Background Agents run inside git worktrees. |
 | `sp-using-superpowers` · `sp-writing-skills` | obra/superpowers | Meta — how agents discover skills and author new ones during Idle Hours. |
 | `uiux-design` · `uiux-design-system` · `uiux-brand` · `uiux-ui-styling` · `uiux-slides` · `uiux-banner-design` · `uiux-ui-ux-pro-max` | nextlevelbuilder/ui-ux-pro-max | **The Lady (Media) + the dashboard.** Brand voice, design tokens, the Hono `:3141` dashboard styling, client decks, social banners. |
+| `huashu-design` | alchaincyf/huashu-design | **The Lady — hi-fi deliverables.** HTML prototypes (with device frames), editable .pptx decks, MP4/GIF animations (25fps + 60fps interp), infographics, design critique (5-dimension radar). Generates the actual artifacts the `uiux-*` skills only spec. |
 | `remotion-best-practices` | remotion-dev/skills | **Promo video.** Domain knowledge for the `promo/remotion/` project — The Lady regenerates promo clips with correct Remotion patterns. |
 
 ## Not vendored (frameworks, not skills — reference only)

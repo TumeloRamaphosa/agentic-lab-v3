@@ -86,5 +86,18 @@ else
 fi
 echo
 
+# 7. Generic — any other top-level skills/<name>/ with SKILL.md at its root.
+#    Catches future skills (e.g. huashu-design) without touching this script.
+echo "extras:"
+HANDLED="claude-goal gstack remotion-best-practices graphify superpowers ui-ux-pro-max"
+for d in "$REPO_SKILLS"/*/; do
+  name="$(basename "$d")"
+  case " $HANDLED " in *" $name "*) continue;; esac
+  if [ -f "$d/SKILL.md" ]; then
+    link "$d" "$name"
+  fi
+done
+echo
+
 echo "Done. Restart Claude Code (or start a new session) for the skills to load."
 echo "Verify with /help — you should see /goal, /graphify, and the gstack + superpowers skills."

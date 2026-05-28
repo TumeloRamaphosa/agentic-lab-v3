@@ -579,6 +579,7 @@ A `skills/` folder ships with this repo (copied from `agentic-lab-v3`). Six vend
 | `sp-verification-before-completion` (obra/superpowers) | Hard gate wired into the Night Build test-loop and Council "done" claims — evidence before assertions |
 | `sp-writing-plans` · `sp-brainstorming` · `sp-executing-plans` · `sp-test-driven-development` · `sp-systematic-debugging` · `sp-subagent-driven-development` · `sp-using-git-worktrees` (obra/superpowers) | CTO + Skunk Works engineering core; Cursor Background Agents run inside git worktrees; Night Build planning |
 | `uiux-*` (nextlevelbuilder/ui-ux-pro-max) | The Lady (Media) + the Hono `:3141` dashboard styling, brand voice, client decks, banners |
+| `huashu-design` (alchaincyf/huashu-design) | **The Lady — hi-fi deliverables.** HTML prototypes with device frames, editable .pptx decks, MP4/GIF animations (60fps interp), infographics, design critique (5-dim radar). Wire into her `tools.allow`; idle-hours can use it to generate per-business pitch decks. |
 | `remotion-best-practices` (remotion-dev) | The Lady regenerates `promo/remotion/` clips with correct Remotion patterns |
 
 Wiring requirements:
