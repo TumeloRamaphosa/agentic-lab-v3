@@ -1,0 +1,17 @@
+{
+  "name": "studex-dashboard-preview",
+  "version": "0.1.0",
+  "private": true,
+  "type": "module",
+  "description": "Static preview of the StudEx Valley OS dashboard — world clocks, kanban, 2nd Brain, per-business + agents pages. Reads the registry configs we already have. Zero deps.",
+  "scripts": {
+    "start": "node server.mjs",
+    "verify": "node verify/check.mjs"
+  },
+  "engines": {
+    "node": ">=20"
+  },
+  "devDependencies": {
+    "playwright": "^1.60.0"
+  }
+}
