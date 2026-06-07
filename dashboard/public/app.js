@@ -19,6 +19,7 @@ const TABS = [
   { id: "secondbrain", label: "2nd Brain" },
   { id: "businesses",  label: "Businesses" },
   { id: "agents",      label: "Agents" },
+  { id: "connectors",  label: "Connectors" },
   { id: "ledger",      label: "Ledger" },
   { id: "nightbuild",  label: "Night Build" },
 ];
@@ -75,7 +76,8 @@ function renderTabs() {
   document.getElementById("page-title").textContent = ({
     council: "Agent Council", mission: "Mission Control",
     secondbrain: "2nd Brain", businesses: "Businesses",
-    agents: "Agents", ledger: "Ledger", nightbuild: "Night Build",
+    agents: "Agents", connectors: "Connectors",
+    ledger: "Ledger", nightbuild: "Night Build",
   })[active] || "Mission Control";
 }
 
@@ -200,6 +202,34 @@ async function viewCouncil() {
   );
 }
 
+async function viewConnectors() {
+  const { connectors } = await jget("/api/connectors");
+  const head = el("div", { class: "section" },
+    el("div", { class: "h2" }, "External platforms wired into the OS"),
+    el("div", { class: "note-row" },
+      "Each connector lives in ", el("b", {}, "dashboard/connectors/adapters/<name>.mjs"),
+      ". When its env key is set, the adapter calls the real API (server-side — keys never reach the browser). Otherwise it returns a stub so this page renders end-to-end."),
+  );
+  return el("div", {}, head, el("div", { class: "grid" }, connectors.map((c) => {
+    const okCls = c.configured ? "ok" : "stale";
+    const errCls = c.error ? "miss" : "";
+    return el("div", { class: "tile" },
+      el("div", { class: "swatch", style: `background: ${c.configured ? "var(--good)" : "var(--accent)"}` }),
+      el("div", { class: "tag" }, `${c.role} · → ${c.agentHint}`),
+      el("div", { class: "name" }, c.display),
+      el("div", { class: "note-row" }, c.description),
+      el("div", { class: "row" }, "Env key", el("b", { class: c.configured ? "ok" : "stale" },
+        c.envKey + (c.configured ? " · set" : " · not set"))),
+      c.lastSync ? el("div", { class: "row" }, "Last sync", el("b", {}, new Date(c.lastSync).toLocaleString())) : null,
+      c.error ? el("div", { class: "row" }, "Error", el("b", { class: "miss" }, c.error)) : null,
+      el("div", { class: "row" }, "Sample",
+        el("b", { style: "font-family:var(--mono);font-size:11px;text-align:right;max-width:60%" },
+          JSON.stringify(c.sample ?? {}).slice(0, 120))),
+      el("div", { class: "pills" }, el("a", { class: "pill", href: c.docsUrl, target: "_blank" }, "docs ↗")),
+    );
+  })));
+}
+
 function viewStub(text) {
   return el("div", { class: "muted" }, text);
 }
@@ -210,6 +240,7 @@ const VIEWS = {
   secondbrain: viewSecondBrain,
   businesses: viewBusinesses,
   agents:     viewAgents,
+  connectors: viewConnectors,
   ledger:     async () => viewStub("Ledger view — wires into the cost-footer daily summary + sales (CashClaw) when valley/cost.json exists."),
   nightbuild: async () => viewStub("Night Build view — surfaces vault/proposals/<tomorrow>/INDEX.md with approve / revise / discard."),
 };

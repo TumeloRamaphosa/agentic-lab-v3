@@ -7,7 +7,7 @@ import { setTimeout as sleep } from "node:timers/promises";
 import { mkdirSync } from "node:fs";
 
 const PORT = 3199;
-const TABS = ["mission", "secondbrain", "businesses", "agents", "council", "ledger", "nightbuild"];
+const TABS = ["mission", "secondbrain", "businesses", "agents", "connectors", "council", "ledger", "nightbuild"];
 
 const server = spawn("node", ["server.mjs"], { env: { ...process.env, PORT }, stdio: ["ignore", "pipe", "pipe"] });
 let log = ""; server.stdout.on("data", (d) => (log += d)); server.stderr.on("data", (d) => (log += d));
@@ -48,8 +48,17 @@ try {
   const cardCount = await page.$$eval(".kanban .card", (els) => els.length);
   if (cardCount < 6) done(1, `FAIL: expected >=6 demo cards across bands, got ${cardCount}`);
 
+  // Connectors tab: every adapter renders a tile (polsia, conway, composio, github, linear, pinecone, elevenlabs, slack, discord)
+  await page.goto(`http://localhost:${PORT}/#connectors`, { waitUntil: "domcontentloaded" });
+  await sleep(1200);
+  const tileCount = await page.$$eval("#view .tile", (els) => els.length);
+  if (tileCount < 9) done(1, `FAIL: expected >=9 connector tiles, got ${tileCount}`);
+  const hasPolsia = await page.evaluate(() => /Polsia/.test(document.getElementById("view").textContent));
+  const hasConway = await page.evaluate(() => /Conway/.test(document.getElementById("view").textContent));
+  if (!hasPolsia || !hasConway) done(1, `FAIL: Polsia/Conway not rendered on Connectors tab`);
+
   await browser.close();
   const real = errors.filter((e) => !/favicon|Failed to load resource.*40[34]/i.test(e));
   if (real.length) done(1, "FAIL: console errors:\n  " + real.slice(0, 6).join("\n  "));
-  done(0, `PASS: 8 clocks · ${bandCount} kanban bands · ${cardCount} cards · ${TABS.length} tabs render · 0 console errors · screenshots in verify/out/`);
+  done(0, `PASS: 8 clocks · ${bandCount} kanban bands · ${cardCount} cards · ${tileCount} connectors (incl. Polsia + Conway) · ${TABS.length} tabs render · 0 console errors · screenshots in verify/out/`);
 } catch (e) { done(1, "FAIL: " + e.message); }

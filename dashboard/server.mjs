@@ -15,6 +15,7 @@ import { readFile } from "node:fs/promises";
 import { existsSync } from "node:fs";
 import { extname, join, normalize, dirname } from "node:path";
 import { fileURLToPath } from "node:url";
+import { statusAll as connectorStatus } from "./connectors/index.mjs";
 
 const here = dirname(fileURLToPath(import.meta.url));
 const repo = join(here, "..");
@@ -65,6 +66,11 @@ createServer(async (req, res) => {
     if (u.pathname === "/api/roster")     return serveJson(res, join(repo, "valley/agents/roster.json"));
     if (u.pathname === "/api/rag-status") return serveJson(res, join(repo, "rag/status.json"));
     if (u.pathname === "/api/missions")   return serveMissions(res);
+    if (u.pathname === "/api/connectors") {
+      const list = await connectorStatus();
+      res.writeHead(200, { "content-type": "application/json" }).end(JSON.stringify({ connectors: list }));
+      return;
+    }
 
     let p = normalize(u.pathname === "/" ? "/index.html" : u.pathname).replace(/^(\.\.[/\\])+/, "");
     const buf = await readFile(join(PUB, p));
